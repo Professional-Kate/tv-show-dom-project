@@ -1,12 +1,9 @@
-//You can edit ALL of the code here
-function setup() {
+// grab all the episodes from the other script and assign that in a variable
+const setup = function () {
   const allEpisodes = getAllEpisodes();
   makePageForEpisodes(allEpisodes);
-}
+};
 
-function makePageForEpisodes(episodeList) {
-  const rootElem = document.getElementById("root");
-  rootElem.textContent = `Got ${episodeList.length} episode(s)`;
-}
+const makePageForEpisodes = function (episodeList) {};
 
 window.onload = setup;
