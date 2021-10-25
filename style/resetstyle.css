@@ -22,7 +22,7 @@ p {
   font-size: 100%; /* every element is the same font size */
 }
 
-nav ul {
+ul {
   list-style: none;
   font-size: 100%;
 }
