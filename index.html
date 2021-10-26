@@ -15,11 +15,35 @@
 
   <body id="body">
     <div id="main-content" class="grid-container">
-      <header class="start-column-2 row-3 span-12">
-        <ul id="top-bar-settings">
-          <li>
+      <!-- top bar settings and toggles  -->
+      <header id="main-header" class="start-column-2 span-10">
+        <ul id="top-bar-settings" class="header-content">
+          <!-- search bar-->
+          <li id="seach-bar">
             <label for="search-bar">Search</label>
-            <input type="text" id="search-bar" />
+            <input type="text" id="search-bar" placeholder="Show / Episode" />
+          </li>
+
+          <!-- theme selector buttons -->
+          <li id="theme-selector-container" class="radio-btn-container">
+            <!-- light mode -->
+            <input
+              checked
+              type="radio"
+              id="light-mode"
+              value="bright"
+              name="theme-selector"
+            />
+            <label for="light-mode">Light mode</label>
+
+            <!-- dark mode -->
+            <input
+              type="radio"
+              id="dark-mode"
+              value="dark"
+              name="theme-selector"
+            />
+            <label for="dark-mode">Dark mode</label>
           </li>
         </ul>
       </header>

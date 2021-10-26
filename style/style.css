@@ -6,3 +6,33 @@
 
   font-family: var(--normal-font);
 }
+
+/* spaces the elements where I want */
+.header-content {
+  display: flex;
+  justify-content: space-between; /* aligns the search bar to the left and the buttons to the right */
+  align-items: center;
+}
+
+/* makes the actual button invisible. We use the label as the intractable */
+.radio-btn-container input[type="radio"] {
+  position: fixed;
+  display: none; /* removes the button from the markup */
+}
+
+/* changing the label of each radio btn */
+.radio-btn-container label {
+  display: inline-block;
+  padding: 10px; /* adds white space to the inside of the button */
+  border: 5px solid red; /* adds a nice border */
+  border-radius: 50px; /* rounded buttons */
+  /* font */
+  font-family: var(--highlight-font);
+  letter-spacing: 3px; /* pushes the characters of the string apart */
+  font-size: 1.5rem;
+}
+
+/* checked radio button based on checked state */
+.radio-btn-container input[type="radio"]:checked + label {
+  border-color: green;
+}
