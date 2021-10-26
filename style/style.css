@@ -37,13 +37,47 @@
   border-color: green;
 }
 
+.main-header {
+  font-family: var(--highlight-font);
+  font-size: 5rem;
+  white-space: nowrap; /* text stays on one line */
+}
+
 .card-container {
   text-align: center;
   margin-top: 4em; /* adds some white space above the element */
 }
 
 .card {
-  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  min-height: 550px;
+  max-height: 550px; /* so all the cards are the same height */
   box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
     rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+
+.card-header {
+  margin-top: 30px;
+  font-size: 2rem;
+  font-family: var(--highlight-font);
+}
+
+.episode-info {
+  display: block;
+  opacity: 0.5;
+}
+
+.card-image {
+  align-self: center;
+  min-width: 400px;
+  aspect-ratio: 25 / 14; /* Medium image: 250x140, that simplified is 25/14 */
+  margin: 20px 0; /* top and bottom margin for some nice whitespace */
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+
+.card-text {
+  overflow: hidden; /* so no text can overflow */
+  padding: 0 20px; /* pushes the text in from the left and right */
 }

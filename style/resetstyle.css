@@ -30,4 +30,6 @@ ul {
 a {
   text-decoration: none;
   outline: 0;
+  color: initial;
+  display: inline;
 }
