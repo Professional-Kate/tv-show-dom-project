@@ -3,7 +3,7 @@
 /* makes a 12 column layout -  each box is separated using gap */
 .grid-container {
   display: grid;
-  grid-template-columns: repeat(12, [col-start] 1fr);
+  grid-template-columns: repeat(16, [col-start] 1fr);
   row-gap: 50px;
   margin-top: 25px; /* adds some white space to the top of the page */
 }
@@ -16,13 +16,21 @@
 }
 
 .start-column-center {
-  --start-column: col-start 6;
+  --start-column: col-start 7;
+}
+
+.start-column-14 {
+  --start-column: col-start 12;
 }
 
 /* ----- how many boxes across should this element stretch ----- */
 
 .span-2 {
   --span-amount: span 2;
+}
+
+.span-3 {
+  --span-amount: span 3;
 }
 
 .span-4 {
@@ -33,11 +41,18 @@
   --span-amount: span 8;
 }
 
-.span-10 {
-  --span-amount: span 10;
+.span-all {
+  --span-amount: span 14;
 }
 
 /* ----- all children of the grid-container class ----- */
 .grid-container * {
   grid-column: var(--start-column) / var(--span-amount);
+}
+
+/* ----- media rules ----- */
+@media only screen and (min-width: 280px) and (max-width: 720px) {
+  .grid-container * {
+    grid-column: col-start 2 / span 14; /* makes sure each grid element is on it's own line */
+  }
 }

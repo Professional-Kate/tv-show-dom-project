@@ -14,40 +14,57 @@
   </head>
 
   <body id="body">
-    <div id="main-content" class="grid-container">
-      <!-- top bar settings and toggles  -->
-      <header id="main-header" class="start-column-2 span-10">
-        <ul id="top-bar-settings" class="header-content">
-          <!-- search bar-->
-          <li id="seach-bar">
-            <label for="search-bar">Search</label>
-            <input type="text" id="search-bar" placeholder="Show / Episode" />
-          </li>
+    <!-- top bar settings and toggles  -->
+    <header
+      id="main-page-header"
+      class="grid-container start-column-2 span-all"
+    >
+      <ul id="top-bar-settings" class="header-content">
+        <!-- search bar-->
+        <li id="seach-bar">
+          <label for="search-bar">Search</label>
+          <input type="text" id="search-bar" placeholder="Show / Episode" />
+        </li>
 
-          <!-- theme selector buttons -->
-          <li id="theme-selector-container" class="radio-btn-container">
-            <!-- light mode -->
-            <input
-              checked
-              type="radio"
-              id="light-mode"
-              value="bright"
-              name="theme-selector"
-            />
-            <label for="light-mode">Light mode</label>
+        <!-- theme selector buttons -->
+        <li id="theme-selector-container" class="radio-btn-container">
+          <!-- light mode -->
+          <input
+            checked
+            type="radio"
+            id="light-mode"
+            value="bright"
+            name="theme-selector"
+          />
+          <label for="light-mode">Light mode</label>
 
-            <!-- dark mode -->
-            <input
-              type="radio"
-              id="dark-mode"
-              value="dark"
-              name="theme-selector"
-            />
-            <label for="dark-mode">Dark mode</label>
-          </li>
-        </ul>
-      </header>
-    </div>
+          <!-- dark mode -->
+          <input
+            type="radio"
+            id="dark-mode"
+            value="dark"
+            name="theme-selector"
+          />
+          <label for="dark-mode">Dark mode</label>
+        </li>
+      </ul>
+    </header>
+    <!-- section for drawing all the shows / episodes -->
+    <section id="main-content" class="grid-container card-container">
+      <h1 id="first-header" class="start-column-center span-4">
+        Episode / show header
+      </h1>
+
+      <article class="start-column-2 span-4 card">
+        <h2>Episode Title 1</h2>
+      </article>
+      <article class="start-column-center span-4 card">
+        <h2>Episode Title 2</h2>
+      </article>
+      <article class="start-column-14 span-4 card">
+        <h2>Episode Title 3</h2>
+      </article>
+    </section>
 
     <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
     <script src="scripts/episodes.js"></script>

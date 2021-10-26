@@ -36,3 +36,14 @@
 .radio-btn-container input[type="radio"]:checked + label {
   border-color: green;
 }
+
+.card-container {
+  text-align: center;
+  margin-top: 4em; /* adds some white space above the element */
+}
+
+.card {
+  min-height: 500px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
