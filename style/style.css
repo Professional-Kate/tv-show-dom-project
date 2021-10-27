@@ -50,11 +50,10 @@
 
 .card {
   display: flex;
-  flex-direction: column;
   min-height: 550px;
-  max-height: 550px; /* so all the cards are the same height */
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-  margin-bottom: 3em;
+  box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px,
+    rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+  margin: 0 0.5em 3em 0.5em; /* pushing the card in from the left and right and pushing elements below it down*/
 }
 
 .card-header {
@@ -64,17 +63,16 @@
 }
 
 .episode-info {
-  display: block;
+  display: block; /* aligns both the text elements on different lines */
   opacity: 0.5;
 }
 
 .card-image {
-  align-self: center;
-  min-width: 300px;
+  min-width: 280px;
   aspect-ratio: 25 / 14; /* Medium image: 250x140, that simplified is 25/14 */
-  margin: 20px 0; /* top and bottom margin for some nice whitespace */
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
-    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  margin: 20px 0 40px 0; /* top and bottom margin for some nice whitespace */
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+    rgba(0, 0, 0, 0.22) 0px 15px 12px;
 }
 
 .card-text {
