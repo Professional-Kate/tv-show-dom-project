@@ -46,13 +46,10 @@
 }
 
 /* ----- all children of the grid-container class ----- */
-.grid-container * {
+/* .grid-container * {
   grid-column: var(--start-column) / var(--span-amount);
-}
+} */
 
-/* ----- media rules ----- */
-@media only screen and (min-width: 280px) and (max-width: 720px) {
-  .grid-container * {
-    grid-column: col-start 2 / span 14; /* makes sure each grid element is on it's own line */
-  }
+.grid-container * {
+  grid-column: col-start 2 / span 14; /* makes sure each grid element is on it's own line */
 }

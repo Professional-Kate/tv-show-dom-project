@@ -25,29 +25,22 @@
           <label for="search-bar">Search</label>
           <input type="text" id="search-bar" placeholder="Show / Episode" />
         </li>
-
-        <!-- theme selector buttons -->
-        <li id="theme-selector-container" class="radio-btn-container">
-          <!-- light mode -->
-          <input
-            checked
-            type="radio"
-            id="light-mode"
-            value="bright"
-            name="theme-selector"
+        <!-- hamburger menu -->
+        <li id="hamburger-menu">
+          <img
+            src="resources/images/Hamburger_icon.png"
+            alt="hamburger menu button"
+            class="hamburger-menu-btn"
           />
-          <label for="light-mode">Light mode</label>
-
-          <!-- dark mode -->
-          <input
-            type="radio"
-            id="dark-mode"
-            value="dark"
-            name="theme-selector"
-          />
-          <label for="dark-mode">Dark mode</label>
         </li>
       </ul>
+      <!-- theme selector switch -->
+      <div id="theme-selector-container" class="radio-btn-container">
+        <label for="selector-switch" id="selector-switch-label"
+          >Dark mode</label
+        >
+        <input type="checkbox" id="selector-switch" name="theme-selector" />
+      </div>
     </header>
     <!-- section for drawing all the shows / episodes -->
     <section id="main-content" class="grid-container card-container">
@@ -55,7 +48,7 @@
         Game Of Thrones
       </h1>
 
-      <!-- max characters 386 -->
+      <!-- max characters 501 -->
       <a
         class="start-column-2 span-4 card"
         href="http://www.tvmaze.com/episodes/4952/game-of-thrones-1x01-winter-is-coming"

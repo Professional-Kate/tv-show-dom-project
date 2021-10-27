@@ -14,32 +14,25 @@
   align-items: center;
 }
 
-/* makes the actual button invisible. We use the label as the intractable */
-.radio-btn-container input[type="radio"] {
-  position: fixed;
-  display: none; /* removes the button from the markup */
+.hamburger-menu-btn {
+  max-width: 30px;
+  cursor: pointer;
 }
 
-/* changing the label of each radio btn */
+.radio-btn-container {
+  display: flex;
+  white-space: nowrap; /* keeps the text on one line */
+  justify-content: flex-end;
+  display: none;
+}
+
 .radio-btn-container label {
-  display: inline-block;
-  padding: 10px; /* adds white space to the inside of the button */
-  border: 5px solid red; /* adds a nice border */
-  border-radius: 50px; /* rounded buttons */
-  /* font */
-  font-family: var(--highlight-font);
-  letter-spacing: 3px; /* pushes the characters of the string apart */
-  font-size: 1.5rem;
-}
-
-/* checked radio button based on checked state */
-.radio-btn-container input[type="radio"]:checked + label {
-  border-color: green;
+  margin-left: 0.3em; /* pushes the checkbox and label apart */
 }
 
 .main-header {
   font-family: var(--highlight-font);
-  font-size: 5rem;
+  font-size: 3rem;
   white-space: nowrap; /* text stays on one line */
 }
 
@@ -70,7 +63,7 @@
 
 .card-image {
   align-self: center;
-  min-width: 400px;
+  min-width: 200px;
   aspect-ratio: 25 / 14; /* Medium image: 250x140, that simplified is 25/14 */
   margin: 20px 0; /* top and bottom margin for some nice whitespace */
   box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
@@ -80,4 +73,5 @@
 .card-text {
   overflow: hidden; /* so no text can overflow */
   padding: 0 20px; /* pushes the text in from the left and right */
+  font-size: 0.9rem;
 }
