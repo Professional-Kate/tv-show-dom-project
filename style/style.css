@@ -14,9 +14,15 @@
   align-items: center;
 }
 
+.search-bar * {
+  margin: 1em 0 -0.7em 1em;
+  display: block;
+}
+
 .hamburger-menu-btn {
   max-width: 30px;
   cursor: pointer;
+  margin: 0.5em;
 }
 
 .radio-btn-container {
@@ -34,6 +40,7 @@
   font-family: var(--highlight-font);
   font-size: 3rem;
   white-space: nowrap; /* text stays on one line */
+  margin-bottom: 1em;
 }
 
 .card-container {
@@ -46,8 +53,8 @@
   flex-direction: column;
   min-height: 550px;
   max-height: 550px; /* so all the cards are the same height */
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
-    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  margin-bottom: 3em;
 }
 
 .card-header {
@@ -63,7 +70,7 @@
 
 .card-image {
   align-self: center;
-  min-width: 200px;
+  min-width: 300px;
   aspect-ratio: 25 / 14; /* Medium image: 250x140, that simplified is 25/14 */
   margin: 20px 0; /* top and bottom margin for some nice whitespace */
   box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
@@ -72,6 +79,6 @@
 
 .card-text {
   overflow: hidden; /* so no text can overflow */
-  padding: 0 20px; /* pushes the text in from the left and right */
+  padding: 0 10px; /* pushes the text in from the left and right */
   font-size: 0.9rem;
 }
