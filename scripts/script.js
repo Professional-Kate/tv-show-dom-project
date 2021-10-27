@@ -14,6 +14,7 @@ const setAttributes = function (element, attributes) {
 // forces passed numbers less than 10 to add a zero before it, so 9 becomes 09
 const minTwoDigits = (number) => (number < 10 ? "0" : "") + number;
 
+// array of objects based on each card
 const episodes = [];
 
 // draws episodes on screen
@@ -70,11 +71,11 @@ const drawEpisodes = function (episodeList) {
     // p tag
     newPTag.innerText = episode.summary.replace(/<\/?[^>]+(>|$)/g, ""); // replace all tags with an empty string. This is because the API has extra <p></p> and </br> tags
 
-    //
+    // push objects into the array based on each episode for use in another function
     episodes.push({
       [uniqueId]: {
         description: newArticleTag.lastChild.innerText,
-        title: newHeaderTag.innerText.slice(0, -7), //removing the season and episode number from the end of the title
+        title: newHeaderTag.innerText,
       },
     });
   });
@@ -88,19 +89,21 @@ const updateSearchText = (amount) => {
 
 // function for the searchbar, handles hiding and showing of cards when the user enters text into the searchbar
 const searchBar = function () {
-  // getting the elements we need
-  const getSearchBar = document.querySelector("#search-bar");
+  // getting the value of the searchbar converted to lowercase
+  const getSearchBar = document
+    .querySelector("#search-bar")
+    .value.toLowerCase();
 
   let drawnEpisodes = 0; // keeping track of the amount of shows drawn on page
   episodes.forEach((episode, index) => {
     // checking the value in the object if the title includes the users entered text
     const titleIncludes = episode[`card-${index}`].title
       .toLowerCase()
-      .includes(getSearchBar.value.toLowerCase());
+      .includes(getSearchBar);
     // checking the value in the object if the description includes the users entered text
     const descriptionIncludes = episode[`card-${index}`].description
       .toLowerCase()
-      .includes(getSearchBar.value.toLowerCase());
+      .includes(getSearchBar);
 
     // add onto the drawnEpisodes so we can use that to update the text
     if (titleIncludes || descriptionIncludes) {
@@ -117,14 +120,22 @@ const searchBar = function () {
 
     updateSearchText(drawnEpisodes);
   });
-
-  // make array of objects for each episode description
-  // object key values: anchor tag id : p.innerText
-  // use that to find and remove ones which don't match
 };
 
+const populateDropdown = function () {
+  const getDropdown = document.querySelector("#select-episode");
+
+  episodes.forEach((episode, index) => {
+    const newOption = getDropdown.appendChild(document.createElement("option"));
+    newOption.innerHTML = episode[`card-${index}`].title;
+    newOption.value = newOption.innerHTML;
+  });
+};
+
+// first time setup
 window.onload = () => {
   setup();
   document.querySelector("#search-bar").addEventListener("input", searchBar);
   updateSearchText(episodes.length); // run this once to set the showing episodes text
+  populateDropdown();
 };
