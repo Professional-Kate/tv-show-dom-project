@@ -5,18 +5,15 @@
   --normal-font: "Roboto", Arial;
 
   font-family: var(--normal-font);
+
+  margin: 0 0.75em 3em 0.75em; /* pushing the card in from the left and right and pushing elements below it down*/
 }
 
 /* spaces the elements where I want */
-.header-content {
+.header-content * {
   display: flex;
-  justify-content: space-between; /* aligns the search bar to the left and the buttons to the right */
-  align-items: center;
-}
-
-.search-bar * {
-  margin: 1em 0 -0.7em 1em;
-  display: block;
+  flex-direction: column;
+  margin-top: 0.5em;
 }
 
 .hamburger-menu-btn {
@@ -53,7 +50,7 @@
   min-height: 550px;
   box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px,
     rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
-  margin: 0 0.75em 3em 0.75em; /* pushing the card in from the left and right and pushing elements below it down*/
+  margin-bottom: 4em;
 }
 
 .card-header {

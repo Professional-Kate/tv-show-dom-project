@@ -16,7 +16,7 @@
   <body id="body">
     <!-- top bar settings and toggles  -->
     <header id="main-page-header">
-      <ul id="top-bar-settings" class="header-content">
+      <ul id="top-bar-settings" class="header-content grid-container">
         <!-- search bar-->
         <li id="seach-bar" class="search-bar">
           <input
@@ -24,20 +24,18 @@
             id="search-bar"
             placeholder="Search for keywords"
           />
+        </li>
+        <li id="dropdown-selector" class="dropdown">
+          <select id="select-episode">
+            <option value="" selected disabled hidden>
+              Select an episode...
+            </option>
+          </select>
+        </li>
+        <li>
           <p id="episodes-shown" class="episode-info">
             Showing 0 of 0 episodes
           </p>
-        </li>
-        <li id="dropdown-selector">
-          <select id="select-episode"></select>
-        </li>
-        <!-- hamburger menu -->
-        <li id="hamburger-menu">
-          <img
-            src="resources/images/Hamburger_icon.png"
-            alt="hamburger menu button"
-            class="hamburger-menu-btn"
-          />
         </li>
       </ul>
       <!-- theme selector switch -->
@@ -49,7 +47,7 @@
       </div>
     </header>
     <!-- section for drawing all the shows / episodes -->
-    <section id="main-content" class="align-center card-container">
+    <section id="main-content" class="card-container">
       <h1 id="first-header" class="main-header">Game Of Thrones</h1>
 
       <!-- max characters 501 -->

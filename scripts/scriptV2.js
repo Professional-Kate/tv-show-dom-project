@@ -104,6 +104,23 @@ const searchBar = function (episodeList) {
   }
 };
 
+const populateDropdown = function (episodeList) {
+  for (episode in episodeList) {
+    const getDropdown = document.querySelector("#select-episode");
+    const newOption = getDropdown.appendChild(document.createElement("option"));
+    newOption.innerHTML = episodeList[episode].fullTitle;
+    newOption.value = newOption.innerHTML;
+  }
+};
+
+const dropdownController = function (episodeList) {
+  const getDropdown = document.querySelector("#select-episode");
+  const getSearchBar = document.querySelector("#search-bar");
+
+  getSearchBar.setAttribute("value", getDropdown.value);
+  searchBar(episodeList);
+};
+
 // forces passed numbers less than 10 to add a zero before it, so 9 becomes 09
 const minTwoDigits = (number) => (number < 10 ? "0" : "") + number;
 
@@ -132,4 +149,11 @@ window.onload = () => {
     .addEventListener("input", () => searchBar(episodesObject));
 
   updateSearchText(episodesObject.length, episodesObject); // running this at setup to update the showing text
+  populateDropdown(episodesObject); // run this once to populate the list
+
+  document.querySelector("#select-episode").addEventListener("change", () => {
+    dropdownController(episodesObject);
+  });
 };
+
+// NEXT : dropdown. When selected move that value into the searchbar

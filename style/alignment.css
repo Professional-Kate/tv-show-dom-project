@@ -1,7 +1,0 @@
-/* SCRIPT FOR GRID ALIGNMENT ONLY */
-
-/* makes a 12 column layout -  each box is separated using gap */
-.grid-container {
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-}
