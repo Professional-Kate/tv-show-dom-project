@@ -16,23 +16,6 @@
   margin-top: 0.5em;
 }
 
-.hamburger-menu-btn {
-  max-width: 30px;
-  cursor: pointer;
-  margin: 0.5em;
-}
-
-.radio-btn-container {
-  display: flex;
-  white-space: nowrap; /* keeps the text on one line */
-  justify-content: flex-end;
-  display: none;
-}
-
-.radio-btn-container label {
-  margin-left: 0.3em; /* pushes the checkbox and label apart */
-}
-
 .main-header {
   font-family: var(--highlight-font);
   font-size: 3rem;
@@ -40,6 +23,7 @@
   margin-bottom: 1em;
 }
 
+/* parent for all the cards */
 .card-container {
   text-align: center;
   margin-top: 4em; /* adds some white space above the element */
@@ -48,6 +32,7 @@
 .card {
   display: flex;
   min-height: 550px;
+  max-height: 550px;
   box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px,
     rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
   margin-bottom: 4em;
@@ -76,4 +61,82 @@
   overflow: hidden; /* so no text can overflow */
   padding: 0 10px; /* pushes the text in from the left and right */
   font-size: 0.9rem;
+}
+
+@media only screen and (min-width: 720px) and (max-width: 1023px) {
+  .header-content {
+    font-size: 2rem;
+  }
+  .search-bar,
+  .dropdown {
+    font-size: 1.5rem;
+  }
+  .main-header {
+    font-size: 7rem;
+  }
+  .card {
+    display: inline-flex;
+    margin: 0em 0.75em; /* adds some space between all the cards */
+    max-width: 350px;
+    min-height: 900px;
+    max-height: 900px;
+  }
+  .card-header {
+    font-size: 3rem;
+  }
+  .card-text {
+    font-size: 1.5rem;
+  }
+}
+
+@media only screen and (min-width: 1024px) and (max-width: 1278px) {
+  .header-content {
+    font-size: 2rem;
+  }
+  .search-bar,
+  .dropdown {
+    font-size: 1.5rem;
+  }
+  .main-header {
+    font-size: 7rem;
+  }
+  .card {
+    display: inline-flex;
+    margin: 0em 0.75em; /* adds some space between all the cards */
+    max-width: 300px;
+    min-height: 1000px;
+    max-height: 1000px;
+  }
+  .card-header {
+    font-size: 3rem;
+  }
+  .card-text {
+    font-size: 1.5rem;
+  }
+}
+
+@media only screen and (min-width: 1280px) {
+  .header-content {
+    font-size: 2rem;
+  }
+  .search-bar,
+  .dropdown {
+    font-size: 1.5rem;
+  }
+  .main-header {
+    font-size: 7rem;
+  }
+  .card {
+    display: inline-flex;
+    margin: 2em 2em; /* adds some space between all the cards */
+    max-width: 350px;
+    min-height: 900px;
+    max-height: 900px;
+  }
+  .card-header {
+    font-size: 3rem;
+  }
+  .card-text {
+    font-size: 1.5rem;
+  }
 }

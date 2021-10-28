@@ -1,141 +1,162 @@
-// grab all the episodes from the other script and assign that in a variable
 const setup = function () {
-  const allEpisodes = getAllEpisodes(); // returns an array
-  drawEpisodes(allEpisodes);
+  const allEpisodes = getAllEpisodes(); // returns an array of objects
+  return constructEpisodes(allEpisodes);
 };
 
-// function made for setting a lot of attributes easily and quick
+// function for setting multiple attributes to an element
 const setAttributes = function (element, attributes) {
   for (let key in attributes) {
     element.setAttribute(key, attributes[key]);
   }
 };
 
-// forces passed numbers less than 10 to add a zero before it, so 9 becomes 09
-const minTwoDigits = (number) => (number < 10 ? "0" : "") + number;
+// makes a new element based on parameters then returns that
+const makeNewElement = (elementName, parent) =>
+  parent.appendChild(document.createElement(elementName));
 
-// array of objects based on each card
-const episodes = [];
+// construct an object with only the data I need with some added methods
+class EpisodeCreator {
+  constructor(title, episodeID, summary, image, link) {
+    this.title = title;
+    this.episodeID = episodeID;
+    this.summary = summary;
+    this.image = image;
+    this.link = link;
+    this.fullTitle = `${title} ${episodeID}`;
 
-// draws episodes on screen
-const drawEpisodes = function (episodeList) {
-  // grabbing the root container we need
-  const getMainContentElement = document.querySelector("#main-content");
+    // adds the episode to the DOM
+    this.constructEpisode = function () {
+      const getParentContainer = document.querySelector("#main-content"); // parent parent
 
-  episodeList.forEach((episode, index) => {
-    // making parent containers and adding them to the DOM
-    const newAnchorTag = getMainContentElement.appendChild(
-      document.createElement("a")
-    );
+      // making new elements and adding them to the DOM
+      const newAnchorTag = makeNewElement("a", getParentContainer); // parent for the episode
+      const newArticleTag = makeNewElement("article", newAnchorTag);
+      const newHeaderTag = makeNewElement("header", newArticleTag);
+      const newImgTag = makeNewElement("img", newArticleTag);
 
-    const uniqueId = (newAnchorTag.id = `card-${index}`); // adding a unique ID to each card
+      // adding attributes to elements
+      setAttributes(newAnchorTag, {
+        class: "card",
+        target: "_blank",
+        href: this.link,
+        id: this.episodeID,
+      }); // anchor
 
-    const newArticleTag = newAnchorTag.appendChild(
-      document.createElement("article")
-    );
+      setAttributes(newArticleTag, { class: "card-text" }); // article
 
-    // making children of the parents and adding them to the DOM
+      setAttributes(newHeaderTag, { class: "card-header" }); // header
+      newHeaderTag.innerHTML = `${this.title} <span class="episode-info">${this.episodeID}</span>`;
 
-    const newHeaderTag = newArticleTag.appendChild(
-      document.createElement("h2")
-    );
-    const newImgTag = newArticleTag.appendChild(document.createElement("img"));
-    const newPTag = newArticleTag.appendChild(document.createElement("p"));
+      setAttributes(newImgTag, {
+        class: "card-image",
+        src: this.image,
+      }); // img
 
-    // adding attributes to our elements
+      newArticleTag.innerHTML += this.summary; // adding a p tag as the last child of article
+    };
 
-    // article tag
-    setAttributes(newArticleTag, { class: "card-text" });
+    // toggles the visibility of the episode
+    this.hideEpisode = function (shouldHide) {
+      if (shouldHide === false) {
+        document.getElementById(this.episodeID).style = ""; // removing all added styles
+      } else {
+        document.getElementById(this.episodeID).style = "display: none"; // hiding the element by removing its display
+      }
+    };
 
-    // anchor tag
-    setAttributes(newAnchorTag, {
-      class: "card",
-      target: "_blank",
-      href: episode.url,
-    });
+    this.constructEpisode(); // calling this function to construct the episode on load
+  }
+}
 
-    // h2 tag
-    setAttributes(newHeaderTag, { class: "card-header" });
-    newHeaderTag.innerHTML = `${
-      episode.name
-    } <span class="episode-info">S${minTwoDigits(
-      episode.season
-    )}E${minTwoDigits(episode.number)}</span>`;
-
-    // img tag
-    setAttributes(newImgTag, {
-      class: "card-image",
-      src: episode.image.medium,
-    });
-
-    // p tag
-    newPTag.innerText = episode.summary.replace(/<\/?[^>]+(>|$)/g, ""); // replace all tags with an empty string. This is because the API has extra <p></p> and </br> tags
-
-    // push objects into the array based on each episode for use in another function
-    episodes.push({
-      [uniqueId]: {
-        description: newArticleTag.lastChild.innerText,
-        title: newHeaderTag.innerText,
-      },
-    });
-  });
-};
-
-// updates the searchbar text to show the amount of episodes being shown
-const updateSearchText = (amount) => {
+// updates the amount of episodes showing
+const updateSearchText = (amount, episodeList) => {
   const getSearchBarText = document.querySelector("#episodes-shown");
-  getSearchBarText.innerText = `Showing ${amount} of ${episodes.length} episodes`;
+  getSearchBarText.innerText = `Showing ${amount} of ${episodeList.length} episodes`;
 };
 
-// function for the searchbar, handles hiding and showing of cards when the user enters text into the searchbar
-const searchBar = function () {
-  // getting the value of the searchbar converted to lowercase
-  const getSearchBar = document
+// logic for the searchbar
+const searchBar = function (episodeList) {
+  // the amount of episodes shown on screen
+  let episodesShown = 0;
+
+  // getting the searchbar value from the DOM
+  const getSearchBarValue = document
     .querySelector("#search-bar")
     .value.toLowerCase();
 
-  let drawnEpisodes = 0; // keeping track of the amount of shows drawn on page
-  episodes.forEach((episode, index) => {
-    // checking the value in the object if the title includes the users entered text
-    const titleIncludes = episode[`card-${index}`].title
+  // for every object in the array of objects
+  for (episode in episodeList) {
+    const titleIncludes = episodeList[episode].fullTitle
       .toLowerCase()
-      .includes(getSearchBar);
+      .includes(getSearchBarValue);
     // checking the value in the object if the description includes the users entered text
-    const descriptionIncludes = episode[`card-${index}`].description
+    const descriptionIncludes = episodeList[episode].summary
       .toLowerCase()
-      .includes(getSearchBar);
+      .includes(getSearchBarValue);
 
-    // add onto the drawnEpisodes so we can use that to update the text
     if (titleIncludes || descriptionIncludes) {
-      drawnEpisodes++;
-      // making sure the display: none isn't present
-      document.getElementById(Object.keys(episode).join()).style = "";
+      episodeList[episode].hideEpisode(false);
+      episodesShown++;
+    } else {
+      episodeList[episode].hideEpisode(true);
     }
-    // if episode doesn't include the users entered text
-    else {
-      // hiding the element completely
-      document.getElementById(Object.keys(episode).join()).style =
-        "display: none";
-    }
-
-    updateSearchText(drawnEpisodes);
-  });
+    updateSearchText(episodesShown, episodeList);
+  }
 };
 
-const populateDropdown = function () {
-  const getDropdown = document.querySelector("#select-episode");
-
-  episodes.forEach((episode, index) => {
+// adds options to the dropdown
+const populateDropdown = function (episodeList) {
+  for (episode in episodeList) {
+    const getDropdown = document.querySelector("#select-episode");
     const newOption = getDropdown.appendChild(document.createElement("option"));
-    newOption.innerHTML = episode[`card-${index}`].title;
+    newOption.innerHTML = episodeList[episode].fullTitle;
     newOption.value = newOption.innerHTML;
+  }
+};
+
+// function for getting the value of the selected option then updating the searchbar with that
+const dropdownController = function (episodeList) {
+  const getDropdown = document.querySelector("#select-episode");
+  const getSearchBar = document.querySelector("#search-bar");
+
+  getSearchBar.setAttribute("value", getDropdown.value);
+  searchBar(episodeList);
+};
+
+// forces passed numbers less than 10 to add a zero before it, so 9 becomes 09
+const minTwoDigits = (number) => (number < 10 ? "0" : "") + number;
+
+// constructs the individual objects for each episode based on the class above
+const constructEpisodes = function (episodeList) {
+  const episodes = [];
+  episodeList.forEach((episode) => {
+    episodes.push(
+      new EpisodeCreator(
+        episode.name, // episode title
+        `S${minTwoDigits(episode.season)}E${minTwoDigits(episode.number)}`, //SxxExx
+        episode.summary, // episode description
+        episode.image.medium, // episode image
+        episode.url // link to external site
+      )
+    );
+  });
+
+  return episodes;
+};
+
+// first time setup also handles the whole episodes object and passing it around
+window.onload = () => {
+  const episodesObject = setup();
+  document
+    .querySelector("#search-bar")
+    .addEventListener("input", () => searchBar(episodesObject));
+
+  updateSearchText(episodesObject.length, episodesObject); // running this at setup to update the showing text
+  populateDropdown(episodesObject); // run this once to populate the list
+
+  document.querySelector("#select-episode").addEventListener("change", () => {
+    dropdownController(episodesObject);
   });
 };
 
-// first time setup
-window.onload = () => {
-  setup();
-  document.querySelector("#search-bar").addEventListener("input", searchBar);
-  updateSearchText(episodes.length); // run this once to set the showing episodes text
-  populateDropdown();
-};
+// NEXT : dropdown. When selected move that value into the searchbar

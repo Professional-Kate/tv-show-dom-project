@@ -8,7 +8,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <!-- style -->
     <link href="style/resetstyle.css" rel="stylesheet" />
-    <link href="style/alignment.css" rel="stylesheet" />
     <link href="style/style.css" rel="stylesheet" />
     <link rel="icon" href="resources/favicon.ico" type="image/x-icon" />
   </head>
@@ -16,17 +15,18 @@
   <body id="body">
     <!-- top bar settings and toggles  -->
     <header id="main-page-header">
-      <ul id="top-bar-settings" class="header-content grid-container">
+      <ul id="top-bar-settings" class="header-content">
         <!-- search bar-->
-        <li id="seach-bar" class="search-bar">
+        <li id="seach-bar">
           <input
+            class="search-bar"
             type="text"
             id="search-bar"
             placeholder="Search for keywords"
           />
         </li>
-        <li id="dropdown-selector" class="dropdown">
-          <select id="select-episode">
+        <li id="dropdown-selector">
+          <select id="select-episode" class="dropdown">
             <option value="" selected disabled hidden>
               Select an episode...
             </option>
@@ -38,13 +38,6 @@
           </p>
         </li>
       </ul>
-      <!-- theme selector switch -->
-      <div id="theme-selector-container" class="radio-btn-container">
-        <label for="selector-switch" id="selector-switch-label"
-          >Dark mode</label
-        >
-        <input type="checkbox" id="selector-switch" name="theme-selector" />
-      </div>
     </header>
     <!-- section for drawing all the shows / episodes -->
     <section id="main-content" class="card-container">
@@ -57,6 +50,6 @@
     <script src="scripts/episodes.js"></script>
 
     <!-- Loads YOUR javascript code -->
-    <script src="scripts/scriptV2.js"></script>
+    <script src="scripts/script.js"></script>
   </body>
 </html>
