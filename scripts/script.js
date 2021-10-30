@@ -1,4 +1,4 @@
-const setup = function () {
+const getLocalEpisodes = function () {
   const allEpisodes = getAllEpisodes(); // returns an array of objects
   return constructEpisodes(allEpisodes);
 };
@@ -69,7 +69,7 @@ class EpisodeCreator {
 }
 
 // updates the amount of episodes showing
-const updateSearchText = (amount, episodeList) => {
+const updateSearchText = (episodeList, amount = episodeList.length) => {
   const getSearchBarText = document.querySelector("#episodes-shown");
   getSearchBarText.innerText = `Showing ${amount} of ${episodeList.length} episodes`;
 };
@@ -100,15 +100,15 @@ const searchBar = function (episodeList) {
     } else {
       episodeList[episode].hideEpisode(true);
     }
-    updateSearchText(episodesShown, episodeList);
+    updateSearchText(episodeList, episodesShown);
   }
 };
 
 // adds options to the dropdown
 const populateDropdown = function (episodeList) {
+  const getDropdown = document.querySelector("#select-episode");
   for (episode in episodeList) {
-    const getDropdown = document.querySelector("#select-episode");
-    const newOption = getDropdown.appendChild(document.createElement("option"));
+    const newOption = makeNewElement("option", getDropdown);
     newOption.innerHTML = episodeList[episode].fullTitle;
     newOption.value = newOption.innerHTML;
   }
@@ -126,11 +126,10 @@ const dropdownController = function (episodeList) {
 // forces passed numbers less than 10 to add a zero before it, so 9 becomes 09
 const minTwoDigits = (number) => (number < 10 ? "0" : "") + number;
 
-// constructs the individual objects for each episode based on the class above
+// constructs the individual objects for each episode based on the class above then return that new array
 const constructEpisodes = function (episodeList) {
-  const episodes = [];
-  episodeList.forEach((episode) => {
-    episodes.push(
+  return episodeList.map(
+    (episode) =>
       new EpisodeCreator(
         episode.name, // episode title
         `S${minTwoDigits(episode.season)}E${minTwoDigits(episode.number)}`, //SxxExx
@@ -138,25 +137,20 @@ const constructEpisodes = function (episodeList) {
         episode.image.medium, // episode image
         episode.url // link to external site
       )
-    );
-  });
-
-  return episodes;
+  );
 };
 
 // first time setup also handles the whole episodes object and passing it around
 window.onload = () => {
-  const episodesObject = setup();
+  const episodesObject = getLocalEpisodes();
   document
     .querySelector("#search-bar")
     .addEventListener("input", () => searchBar(episodesObject));
 
-  updateSearchText(episodesObject.length, episodesObject); // running this at setup to update the showing text
+  updateSearchText(episodesObject); // running this at setup to update the showing text
   populateDropdown(episodesObject); // run this once to populate the list
 
   document.querySelector("#select-episode").addEventListener("change", () => {
     dropdownController(episodesObject);
   });
 };
-
-// NEXT : dropdown. When selected move that value into the searchbar
