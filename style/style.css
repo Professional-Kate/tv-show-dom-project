@@ -5,8 +5,6 @@
   --normal-font: "Roboto", Arial;
 
   font-family: var(--normal-font);
-
-  margin: 0 0.75em 3em 0.75em; /* pushing the card in from the left and right and pushing elements below it down*/
 }
 
 /* spaces the elements where I want */
@@ -29,13 +27,17 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 30px;
+  gap: 50px;
   margin-top: 4em; /* adds some white space above the element */
 }
 
+.left-right-margin {
+  margin: 0 0.75em 3em 0.75em; /* pushing the card in from the left and right and pushing elements below it down*/
+}
+
 .card {
-  height: 550px;
-  width: 350px;
+  height: 630px;
+  width: 450px;
   box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px,
     rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
 }
@@ -52,7 +54,7 @@
 }
 
 .card-image {
-  min-width: 280px;
+  min-width: 400px;
   aspect-ratio: 25 / 14; /* Medium image: 250x140, that simplified is 25/14 */
   margin: 20px 0 40px 0; /* top and bottom margin for some nice whitespace */
   box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
@@ -61,5 +63,25 @@
 
 .card-text {
   padding: 0 15px; /* pushes the text in from the left and right */
-  font-size: 1rem;
+  font-size: 1.5rem;
+}
+
+.footer {
+  display: flex;
+  border-top: 3px solid black;
+  margin-top: 5em;
+  justify-content: flex-end; /* aligns items to the right of the container */
+}
+
+/* ----- FOOTER ----- */
+
+.footer-text {
+  margin-top: 1em; /* adds some whitespace to the top */
+  font-size: 1.2rem;
+}
+
+.footer-link {
+  text-decoration: underline;
+  font-family: var(--highlight-font);
+  letter-spacing: 1px;
 }

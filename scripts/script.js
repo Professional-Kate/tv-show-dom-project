@@ -52,8 +52,13 @@ class EpisodeCreator {
         src: this.image,
       }); // img
 
-      newArticleTag.innerHTML += this.summary; // adding a p tag as the last child of article
-    };
+      // summary paragraph
+      const shortenedSummary = this.summary.replace(/^(.{220}[^\s]*).*/, "$1"); // the replace uses regex to only cut text after 220 characters but doesn't cut a word in half
+
+      shortenedSummary.length === this.summary.length
+        ? (newArticleTag.innerHTML += shortenedSummary)
+        : (newArticleTag.innerHTML += shortenedSummary + "...");
+    }; // checks if the shortenedSummary length is equal to the non mutated summary, if it is then the replace did nothing and we don't need to add the ellipsis
 
     // toggles the visibility of the episode
     this.hideEpisode = function (shouldHide) {
