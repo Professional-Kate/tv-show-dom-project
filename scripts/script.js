@@ -17,20 +17,20 @@ const makeNewElement = (elementName, parent) =>
 // construct an object with only the data I need with some added methods
 class EpisodeCreator {
   constructor(title, episodeID, summary, image, link) {
-    this.title = title;
-    this.episodeID = episodeID;
-    this.summary = summary;
-    this.image = image;
-    this.link = link;
-    this.fullTitle = `${episodeID} - ${title} `;
+    this.title = title; // episode title
+    this.episodeID = episodeID; // eg: S01E03
+    this.summary = summary; // episode summary
+    this.image = image; // medium sized image
+    this.link = link; // link to the episode on the API's website
+    this.fullTitle = `${episodeID} - ${title} `; // used in the searchbar and dropdown
 
     // adds the episode to the DOM
     this.constructEpisode = function () {
       const getParentContainer = document.querySelector("#main-content"); // parent parent
 
       // making new elements and adding them to the DOM
-      const newAnchorTag = makeNewElement("a", getParentContainer); // parent for the episode
-      const newArticleTag = makeNewElement("article", newAnchorTag);
+      const newAnchorTag = makeNewElement("a", getParentContainer); // parent for the article
+      const newArticleTag = makeNewElement("article", newAnchorTag); // parent for everything else
       const newHeaderTag = makeNewElement("header", newArticleTag);
       const newImgTag = makeNewElement("img", newArticleTag);
 
@@ -53,7 +53,7 @@ class EpisodeCreator {
       }); // img
 
       // summary paragraph
-      const shortenedSummary = this.summary.replace(/^(.{220}[^\s]*).*/, "$1"); // the replace uses regex to only cut text after 220 characters but doesn't cut a word in half
+      const shortenedSummary = this.summary.replace(/^(.{230}[^\s]*).*/, "$1"); // the replace uses regex to only cut text after 230 characters but doesn't cut a word in half
 
       shortenedSummary.length === this.summary.length
         ? (newArticleTag.innerHTML += shortenedSummary)
@@ -65,11 +65,11 @@ class EpisodeCreator {
       if (shouldHide === false) {
         document.getElementById(this.episodeID).style = ""; // removing all added styles
       } else {
-        document.getElementById(this.episodeID).style = "display: none"; // hiding the element by removing its display
+        document.getElementById(this.episodeID).style = "display: none"; // hiding the element by removing its display. This also takes the element out from the flow of the page
       }
     };
 
-    this.constructEpisode(); // calling this function to construct the episode on load
+    this.constructEpisode(); // calling this function to construct the episodes on load
   }
 }
 
@@ -101,7 +101,7 @@ const searchBar = function (episodeList) {
 
     if (titleIncludes || descriptionIncludes) {
       episodeList[episode].hideEpisode(false);
-      episodesShown++;
+      episodesShown++; // only need to add because this variable is reset whenever this function runs
     } else {
       episodeList[episode].hideEpisode(true);
     }
