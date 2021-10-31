@@ -22,7 +22,7 @@ class EpisodeCreator {
     this.summary = summary;
     this.image = image;
     this.link = link;
-    this.fullTitle = `${title} ${episodeID}`;
+    this.fullTitle = `${episodeID} - ${title} `;
 
     // adds the episode to the DOM
     this.constructEpisode = function () {
@@ -57,7 +57,7 @@ class EpisodeCreator {
 
       shortenedSummary.length === this.summary.length
         ? (newArticleTag.innerHTML += shortenedSummary)
-        : (newArticleTag.innerHTML += shortenedSummary + "...");
+        : (newArticleTag.innerHTML += shortenedSummary + " ...");
     }; // checks if the shortenedSummary length is equal to the non mutated summary, if it is then the replace did nothing and we don't need to add the ellipsis
 
     // toggles the visibility of the episode
