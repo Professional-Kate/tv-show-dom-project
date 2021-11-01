@@ -6,32 +6,38 @@
   --big-font: "Bebas Neue", Arial;
 
   font-family: var(--normal-font);
+  width: 100vw;
 }
 
 /* ----- MISC STYLE ----- */
 
 .left-right-margin {
-  margin: 0 0.75em 3em 0.75em; /* pushing the card in from the left and right and pushing elements below it down*/
+  margin: 0 1em 3em 1em; /* pushing the card in from the left and right and pushing elements below it down*/
 }
 
 /* ----- HEADER ----- */
 
-.main-header {
-  font-family: var(--big-font);
-  font-size: 6rem;
-  margin-bottom: 1.25em;
-  text-align: center;
-}
-
 .header-content {
   display: flex;
   margin-top: 0.5em;
-  flex-direction: row;
+  flex-direction: column;
   gap: 10px;
 }
 
 .header-content * {
   width: 100%;
+}
+
+.main-header {
+  font-family: var(--big-font);
+  font-size: 5rem;
+  margin: 0.5em 0;
+  text-align: center;
+}
+
+.header-content p {
+  text-align: left;
+  font-size: 1rem;
 }
 
 /* ----- EPISODE CARDS ----- */
@@ -46,15 +52,15 @@
 }
 
 .card {
-  height: 750px;
-  width: 450px;
+  height: 600px;
+  width: 260px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 /* episode title */
 .card-header {
   margin-top: 30px;
-  font-size: 3rem;
+  font-size: 2rem;
   font-family: var(--big-font);
 }
 
@@ -63,10 +69,11 @@
   display: block; /* aligns both the text elements on different lines */
   opacity: 0.5;
   text-align: right;
+  font-size: 1.5rem;
 }
 
 .card-image {
-  width: 420px;
+  width: 230px;
   aspect-ratio: 25 / 14; /* Medium image: 250x140, that simplified is 25/14 */
   margin: 20px 0 40px 0; /* top and bottom margin for some nice whitespace */
   box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
@@ -76,7 +83,7 @@
 /* episode summary */
 .card-text {
   padding: 0 15px; /* pushes the text in from the left and right */
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   text-align: left;
 }
 
@@ -91,6 +98,7 @@
 
 .footer-text {
   margin-top: 1em; /* adds some whitespace to the top */
+  text-align: center;
   font-size: 1.2rem;
 }
 
