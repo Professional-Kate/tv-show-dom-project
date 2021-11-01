@@ -22,7 +22,7 @@ class EpisodeCreator {
     this.summary = summary; // episode summary
     this.image = image; // medium sized image
     this.link = link; // link to the episode on the API's website
-    this.fullTitle = `${episodeID} - ${title} `; // used in the searchbar and dropdown
+    this.fullTitle = `${episodeID} - ${title}`; // used in the searchbar and dropdown
 
     // adds the episode to the DOM
     this.constructEpisode = function () {

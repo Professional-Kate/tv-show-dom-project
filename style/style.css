@@ -52,7 +52,7 @@
 }
 
 .card {
-  height: 600px;
+  height: 600px; /* all cards are the same size not depending on the size of the content inside */
   width: 260px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
@@ -113,4 +113,47 @@
   color: blue;
   border-color: blue;
   transition-duration: 300ms;
+}
+
+@media only screen and (min-width: 1024px) and (max-width: 1279px) {
+  .main-header {
+    font-size: 7rem;
+  }
+  .card {
+    height: 625px;
+  }
+  .card-header {
+    font-size: 2.5rem;
+  }
+  .episode-info {
+    font-size: 2rem;
+  }
+}
+
+@media only screen and (min-width: 1280px) {
+  .header-content {
+    display: flex;
+    margin-top: 1em;
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  .header-content p {
+    display: block;
+    font-size: 1.3rem;
+  }
+
+  .main-header {
+    font-size: 9rem;
+  }
+
+  .card {
+    height: 655px;
+  }
+  .card-header {
+    font-size: 2.75rem;
+  }
+  .episode-info {
+    font-size: 2.5rem;
+  }
 }
