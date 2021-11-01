@@ -115,6 +115,7 @@
   transition-duration: 300ms;
 }
 
+/*  small screens  */
 @media only screen and (min-width: 1024px) and (max-width: 1279px) {
   .main-header {
     font-size: 7rem;
@@ -130,7 +131,8 @@
   }
 }
 
-@media only screen and (min-width: 1280px) {
+/*  medium screens */
+@media only screen and (min-width: 1280px) and (max-width: 1500px) {
   .header-content {
     display: flex;
     margin-top: 1em;
@@ -139,7 +141,6 @@
   }
 
   .header-content p {
-    display: block;
     font-size: 1.3rem;
   }
 
@@ -155,5 +156,43 @@
   }
   .episode-info {
     font-size: 2.5rem;
+  }
+}
+
+/*  large screens  */
+@media only screen and (min-width: 1501px) {
+  .header-content {
+    display: flex;
+    margin-top: 1em;
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  .header-content p {
+    font-size: 1.3rem;
+  }
+
+  .main-header {
+    font-size: 11rem;
+  }
+
+  .card {
+    height: 750px;
+    width: 450px;
+  }
+
+  .card-header {
+    font-size: 3rem;
+  }
+  .card-image {
+    width: 420px;
+  }
+
+  .episode-info {
+    font-size: 2.5rem;
+  }
+
+  .card-text {
+    font-size: 1.5rem;
   }
 }
