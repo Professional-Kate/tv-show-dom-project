@@ -26,8 +26,19 @@
 .main-header {
   font-family: var(--big-font);
   font-size: 6rem;
-  margin: 1em 0 2em 0;
+  margin-bottom: 1.25em;
   text-align: center;
+}
+
+.search-bar {
+  display: flex;
+  width: 50%;
+}
+
+.search-bar-clear {
+  width: 20px;
+  position: absolute;
+  align-self: flex-end;
 }
 
 /* ----- EPISODE CARDS ----- */
@@ -44,11 +55,7 @@
 .card {
   height: 750px;
   width: 450px;
-  box-shadow: blue 0px 0px 0px 2px inset, rgb(255, 255, 255) 10px -10px 0px -3px,
-    rgb(31, 193, 27) 10px -10px, rgb(255, 255, 255) 20px -20px 0px -3px,
-    rgb(255, 217, 19) 20px -20px, rgb(255, 255, 255) 30px -30px 0px -3px,
-    rgb(255, 156, 85) 30px -30px, rgb(255, 255, 255) 40px -40px 0px -3px,
-    rgb(255, 85, 85) 40px -40px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 /* episode title */

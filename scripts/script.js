@@ -79,7 +79,7 @@ const updateSearchText = (episodeList, amount = episodeList.length) => {
   getSearchBarText.innerText = `Showing ${amount} of ${episodeList.length} episodes`;
 };
 
-// logic for the searchbar
+// oninput event callback for the searchbar
 const searchBar = function (episodeList) {
   // the amount of episodes shown on screen
   let episodesShown = 0;
@@ -109,7 +109,7 @@ const searchBar = function (episodeList) {
   }
 };
 
-// adds options to the dropdown
+// adds options to the dropdown. This is ran on website load
 const populateDropdown = function (episodeList) {
   const getDropdown = document.querySelector("#select-episode");
   for (episode in episodeList) {
@@ -119,21 +119,20 @@ const populateDropdown = function (episodeList) {
   }
 };
 
-// function for getting the value of the selected option then updating the searchbar with that
+// onchange event callback for the dropdown menu
 const dropdownController = function (episodeList) {
-  const getDropdown = document.querySelector("#select-episode");
-  const getSearchBar = document.querySelector("#search-bar");
+  document.querySelector("#search-bar").value =
+    document.querySelector("#select-episode").value; // setting the value of the searchbar using the drop downs selected value
 
-  getSearchBar.setAttribute("value", getDropdown.value);
-  searchBar(episodeList);
+  searchBar(episodeList); // call the searchbar function to update the amount of episodes shown with the new searchbar value
 };
 
 // forces passed numbers less than 10 to add a zero before it, so 9 becomes 09
 const minTwoDigits = (number) => (number < 10 ? "0" : "") + number;
 
 // constructs the individual objects for each episode based on the class above then return that new array
-const constructEpisodes = function (episodeList) {
-  return episodeList.map(
+const constructEpisodes = (episodeList) =>
+  episodeList.map(
     (episode) =>
       new EpisodeCreator(
         episode.name, // episode title
@@ -143,7 +142,6 @@ const constructEpisodes = function (episodeList) {
         episode.url // link to external site
       )
   );
-};
 
 // first time setup also handles the whole episodes object and passing it around
 window.onload = () => {
