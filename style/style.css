@@ -16,13 +16,6 @@
 
 /* ----- HEADER ----- */
 
-/* spaces the elements where I want */
-.header-content * {
-  display: flex;
-  flex-direction: column;
-  margin-top: 0.5em;
-}
-
 .main-header {
   font-family: var(--big-font);
   font-size: 6rem;
@@ -30,15 +23,15 @@
   text-align: center;
 }
 
-.search-bar {
+.header-content {
   display: flex;
-  width: 50%;
+  margin-top: 0.5em;
+  flex-direction: row;
+  gap: 10px;
 }
 
-.search-bar-clear {
-  width: 20px;
-  position: absolute;
-  align-self: flex-end;
+.header-content * {
+  width: 100%;
 }
 
 /* ----- EPISODE CARDS ----- */

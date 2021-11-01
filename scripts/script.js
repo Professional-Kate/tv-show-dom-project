@@ -101,7 +101,7 @@ const searchBar = function (episodeList) {
 
     if (titleIncludes || descriptionIncludes) {
       episodeList[episode].hideEpisode(false);
-      episodesShown++; // only need to add because this variable is reset whenever this function runs
+      episodesShown++; // only need to add because this variable is reset to 0 whenever this function runs
     } else {
       episodeList[episode].hideEpisode(true);
     }
@@ -113,9 +113,9 @@ const searchBar = function (episodeList) {
 const populateDropdown = function (episodeList) {
   const getDropdown = document.querySelector("#select-episode");
   for (episode in episodeList) {
-    const newOption = makeNewElement("option", getDropdown);
-    newOption.innerHTML = episodeList[episode].fullTitle;
-    newOption.value = newOption.innerHTML;
+    const newOption = makeNewElement("option", getDropdown); // for every episode make a new option
+    newOption.innerHTML = episodeList[episode].fullTitle; // set the text of it to be the fullTitle
+    newOption.value = newOption.innerHTML; // setting the value of that new dropdown
   }
 };
 
