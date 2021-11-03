@@ -26,8 +26,8 @@ class EpisodeCardCreator {
       // making new elements and adding them to the DOM
       const newAnchorTag = makeNewElement("a", getParentContainer); // parent for the article
       const newArticleTag = makeNewElement("article", newAnchorTag); // parent for everything else
-      const newHeaderTag = makeNewElement("header", newArticleTag);
       const newImgTag = makeNewElement("img", newArticleTag);
+      const newHeaderTag = makeNewElement("h2", newArticleTag);
 
       // adding attributes to elements
       setAttributes(newAnchorTag, {
