@@ -70,9 +70,9 @@ const masterFunction = function (episodeArray) {
   });
 };
 
-const data = "local"; // "live" - grabbing from the API, will make an API call. "Local" - using the local data in episodes.js meaning no API call
+const useLiveData = false; // true - grabbing from the API, will make an API call. false - using the local data in episodes.js meaning no API call
 
-if (data === "live") {
+if (useLiveData) {
   console.log("Using live data...");
   getEpisodeFromAPI();
 } else {
