@@ -14,10 +14,10 @@ The /search/show endpoint can accept any string in the query. And is a fuzzy sea
 const minTwoDigits = (number) => (number < 10 ? "0" : "") + number;
 
 // getting episodes from the TVMaze api using an episode ID
-const getEpisodesFromID = (id) => {
+const getEpisodesFromID = (showID) => {
   console.log("API was called");
 
-  fetch(`https://api.tvmaze.com/shows/${id}/episodes`)
+  fetch(`https://api.tvmaze.com/shows/${showID}/episodes`)
     .then(function (response) {
       if (response.ok) {
         return response.json();
@@ -25,18 +25,21 @@ const getEpisodesFromID = (id) => {
       throw `${response.status} ${response.statusText}`;
     })
     .then(function (data) {
-      // constructs the individual objects for each episode based on the class above then return that new array
+      // constructs the individual objects for each episode then returns that into the function
       masterFunction(
         data.map(
           (episode) =>
+            // everything after the || is what the constructor will use if the key can't be found
             new EpisodeCardCreator(
-              episode.name, // episode title
+              episode.name ||
+                "This episode title couldn't be loaded at this time, sorry.", // episode title
               `S${minTwoDigits(episode.season)}E${minTwoDigits(
-                episode.number
+                episode.number || "S01E01"
               )}`, //SxxExx
-              episode.summary, // episode description
-              episode.image.medium, // episode image
-              episode.url // link to external site
+              episode.summary ||
+                "This episode summary couldn't be loaded at this time, sorry.", // episode description
+              episode.image || "", // episode image
+              episode.url || "https://www.tvmaze.com/" // link to external site
             )
         )
       );

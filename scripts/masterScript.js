@@ -1,5 +1,5 @@
 const getEpisodeFromAPI = function () {
-  getEpisodesFromID(82); // returns an array of objects
+  getEpisodesFromID(379); // returns an array of objects
 };
 
 // updates the amount of episodes showing
@@ -42,7 +42,7 @@ const searchBar = function (episodeList) {
 const populateDropdown = function (episodeList) {
   const getDropdown = document.querySelector("#select-episode");
   for (episode in episodeList) {
-    const newOption = makeNewElement("option", getDropdown); // for every episode make a new option
+    const newOption = getDropdown.appendChild(document.createElement("option")); // for every episode make a new option
     newOption.innerHTML = episodeList[episode].fullTitle; // set the text of it to be the fullTitle
     newOption.value = newOption.innerHTML; // setting the value of that new dropdown
   }
@@ -58,8 +58,6 @@ const dropdownController = function (episodeList) {
 
 // first time setup also handles the whole episodes object and passing it around
 const masterFunction = function (episodeArray) {
-  console.log(episodeArray);
-
   document
     .querySelector("#search-bar")
     .addEventListener("input", () => searchBar(episodeArray));
@@ -83,11 +81,15 @@ if (data === "live") {
   const episodeArray = episodesList.map(
     (episode) =>
       new EpisodeCardCreator(
-        episode.name, // episode title
-        `S${minTwoDigits(episode.season)}E${minTwoDigits(episode.number)}`, //SxxExx
-        episode.summary, // episode description
-        episode.image.medium, // episode image
-        episode.url // link to external site
+        episode.name ||
+          "This episode title couldn't be loaded at this time, sorry.", // episode title
+        `S${minTwoDigits(episode.season)}E${minTwoDigits(
+          episode.number || "S01E01"
+        )}`, //SxxExx
+        episode.summary ||
+          "This episode summary couldn't be loaded at this time, sorry.", // episode description
+        episode.image || "", // episode image
+        episode.url || "https://www.tvmaze.com/" // link to external site
       )
   );
   masterFunction(episodeArray);
