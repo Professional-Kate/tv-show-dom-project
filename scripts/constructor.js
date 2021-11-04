@@ -15,7 +15,7 @@ class EpisodeCardCreator {
     this.title = title; // episode title
     this.episodeID = episodeID; // eg: S01E03
     this.summary = summary; // episode summary
-    this.image = image.medium; // medium sized image
+    this.image = image.original; // medium sized image
     this.link = link; // link to the episode on the API's website
     this.fullTitle = `${episodeID} - ${title}`; // used in the searchbar and dropdown
 

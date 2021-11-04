@@ -67,7 +67,7 @@
     rgba(0, 0, 0, 0.22) 0px 10px 10px;
   border-radius: 30px;
   margin-top: 20px;
-  width: 300px;
+  width: 85vw;
 }
 
 /* episode title */
@@ -122,4 +122,41 @@
   color: blue;
   border-color: blue;
   transition-duration: 300ms;
+}
+
+/* ----- SMALL SCREENS ----- */
+@media only screen and (min-width: 540px) and (max-width: 1023px) {
+  .card {
+    height: 750px;
+  }
+  .card-image {
+    width: 92vw;
+  }
+  .card-header {
+    font-size: 3.75rem;
+    letter-spacing: 4px;
+  }
+  .episode-info {
+    font-size: 2.5rem;
+  }
+}
+
+/* ----- MEDIUM SCREENS ----- */
+@media only screen and (min-width: 1024px) {
+  .card {
+    height: 1300px;
+  }
+  .card-image {
+    width: 94vw;
+  }
+  .card-header {
+    font-size: 6rem;
+    letter-spacing: 6px;
+  }
+  .episode-info {
+    font-size: 4rem;
+  }
+  .card-text {
+    font-size: 2rem;
+  }
 }
