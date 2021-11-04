@@ -53,12 +53,13 @@
 
 .card {
   height: 600px; /* all cards are the same size not depending on the size of the content inside */
+  width: 100%;
   box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
   background: url(../resources/images/pattern.svg);
   border-radius: 30px;
   color: white;
+  padding: 0 15px;
+  text-align: left;
 }
 
 .card-image {
@@ -76,7 +77,6 @@
   font-family: var(--big-font);
   letter-spacing: 2px;
   margin: 30px 0 20px 0; /* top and bottom margin for some nice whitespace */
-  text-align: center;
 }
 
 /* season and episode number */
@@ -86,7 +86,6 @@
   text-align: right;
   font-size: 1.5rem;
   text-align: left;
-  text-align: center;
 }
 
 /* episode summary */
@@ -142,7 +141,7 @@
 }
 
 /* ----- MEDIUM SCREENS ----- */
-@media only screen and (min-width: 1024px) {
+@media only screen and (min-width: 1024px) and (max-width: 1719px) {
   .card {
     height: 1300px;
   }
@@ -152,6 +151,25 @@
   .card-header {
     font-size: 6rem;
     letter-spacing: 6px;
+  }
+  .episode-info {
+    font-size: 4rem;
+  }
+  .card-text {
+    font-size: 2rem;
+  }
+}
+
+@media only screen and (min-width: 1720px) {
+  .card {
+    height: 1000px;
+  }
+  .card-image {
+    width: 40vw;
+  }
+  .card-header {
+    font-size: 7rem;
+    letter-spacing: 4px;
   }
   .episode-info {
     font-size: 4rem;

@@ -37,8 +37,6 @@ class EpisodeCardCreator {
         id: this.episodeID,
       }); // anchor
 
-      setAttributes(newArticleTag, { class: "card-text" }); // article
-
       setAttributes(newHeaderTag, { class: "card-header" }); // header
       newHeaderTag.innerHTML = `${this.title} <span class="episode-info">${this.episodeID}</span>`;
 
@@ -52,8 +50,11 @@ class EpisodeCardCreator {
 
       shortenedSummary.length === this.summary.length
         ? (newArticleTag.innerHTML += shortenedSummary)
-        : (newArticleTag.innerHTML += shortenedSummary + " ...");
-    }; // checks if the shortenedSummary length is equal to the non mutated summary, if it is then the replace did nothing and we don't need to add the ellipsis
+        : (newArticleTag.innerHTML += shortenedSummary + " ..."); // checks if the shortenedSummary length is equal to the non mutated summary, if it is then the replace did nothing and we don't need to add the ellipsis
+
+      const getParagraph = newArticleTag.lastChild;
+      setAttributes(getParagraph, { class: "card-text" });
+    };
 
     // toggles the visibility of the episode
     this.hideCard = function (shouldHide) {
