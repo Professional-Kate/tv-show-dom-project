@@ -48,7 +48,7 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 55px;
-  margin-top: 4em; /* adds some white space above the element */
+  margin-top: 2em; /* adds some white space above the element */
 }
 
 .card {
@@ -59,7 +59,6 @@
   background: url(../resources/images/pattern.svg);
   border-radius: 30px;
   color: white;
-  min-width: 100%;
 }
 
 .card-image {
@@ -68,16 +67,16 @@
     rgba(0, 0, 0, 0.22) 0px 10px 10px;
   border-radius: 30px;
   margin-top: 20px;
-  width: 220px;
+  width: 300px;
 }
 
 /* episode title */
 .card-header {
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-family: var(--big-font);
-  text-align: left;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
   margin: 30px 0 20px 0; /* top and bottom margin for some nice whitespace */
+  text-align: center;
 }
 
 /* season and episode number */
@@ -87,6 +86,7 @@
   text-align: right;
   font-size: 1.5rem;
   text-align: left;
+  text-align: center;
 }
 
 /* episode summary */
@@ -122,90 +122,4 @@
   color: blue;
   border-color: blue;
   transition-duration: 300ms;
-}
-
-/*  small screens  */
-@media only screen and (min-width: 1024px) and (max-width: 1279px) {
-  .main-header {
-    font-size: 7rem;
-  }
-  .card {
-    height: 625px;
-  }
-  .card-header {
-    font-size: 2.5rem;
-  }
-  .episode-info {
-    font-size: 2rem;
-  }
-}
-
-/*  medium screens */
-@media only screen and (min-width: 1280px) and (max-width: 1500px) {
-  .header-content {
-    display: flex;
-    margin-top: 1em;
-    flex-direction: row;
-    gap: 10px;
-  }
-
-  .header-content p {
-    font-size: 1.3rem;
-  }
-
-  .main-header {
-    font-size: 9rem;
-  }
-
-  .card {
-    height: 655px;
-  }
-  .card-header {
-    font-size: 2.75rem;
-  }
-  .episode-info {
-    font-size: 2.5rem;
-  }
-}
-
-/*  large screens  */
-@media only screen and (min-width: 1501px) {
-  .header-content {
-    display: flex;
-    margin-top: 1em;
-    flex-direction: row;
-    gap: 10px;
-  }
-
-  .header-content p {
-    font-size: 1.3rem;
-  }
-
-  .main-header {
-    font-size: 11rem;
-  }
-
-  .card {
-    height: 750px;
-  }
-
-  .card-image {
-    width: 500px;
-  }
-
-  .card-header {
-    font-size: 6rem;
-    text-align: left;
-    letter-spacing: 4px;
-    white-space: nowrap;
-  }
-
-  .episode-info {
-    font-size: 2.5rem;
-  }
-
-  .card-text {
-    font-size: 2rem;
-    grid-column: 1 / 4;
-  }
 }
