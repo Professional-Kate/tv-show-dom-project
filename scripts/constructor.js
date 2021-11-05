@@ -15,9 +15,15 @@ class EpisodeCardCreator {
     this.title = title; // episode title
     this.episodeID = episodeID; // eg: S01E03
     this.summary = summary; // episode summary
-    this.image = image.original; // medium sized image
     this.link = link; // link to the episode on the API's website
     this.fullTitle = `${episodeID} - ${title}`; // used in the searchbar and dropdown
+
+    // condition for if the API doesn't have an image for the show we replace it with a placeholder
+    if (typeof image !== "object") {
+      console.log("Episode image didn't exist, replacing image...");
+      this.image =
+        "https://pbs.twimg.com/media/E1Tm_QnWQAAY5LT?format=jpg&name=large";
+    } else this.image = image.original;
 
     // adds the episode to the DOM
     this.constructCard = function () {

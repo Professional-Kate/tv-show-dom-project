@@ -28,6 +28,12 @@
             </option>
           </select>
         </li>
+        <li id="dropdown-selector" class="dropdown">
+          <select id="select-show">
+            <!-- default option  -->
+            <option value="" selected disabled hidden>Select a show...</option>
+          </select>
+        </li>
         <li>
           <p id="episodes-shown" class="episode-info">
             Showing 0 of 0 episodes
@@ -37,8 +43,11 @@
     </header>
     <!-- section for drawing all the shows / episodes -->
 
-    <h1 id="first-header" class="main-header">Game Of Thrones</h1>
-    <section id="main-content" class="card-container"></section>
+    <h1 id="first-header" class="main-header">Select a show...</h1>
+
+    <div id="page-container">
+      <section id="main-content" class="card-container"></section>
+    </div>
 
     <footer id="main-footer" class="footer left-right-margin">
       <h3 id="footer-header" class="footer-text">
@@ -49,6 +58,7 @@
       </h3>
     </footer>
 
+    <script src="scripts/shows.js"></script>
     <script src="scripts/getEpisodesFromAPI.js"></script>
     <script src="scripts/constructor.js"></script>
     <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->

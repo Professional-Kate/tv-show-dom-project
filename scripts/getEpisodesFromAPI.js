@@ -15,7 +15,7 @@ const minTwoDigits = (number) => (number < 10 ? "0" : "") + number;
 
 // getting episodes from the TVMaze api using an episode ID
 const getEpisodesFromID = (showID) => {
-  console.log("API was called");
+  console.log("TVMaze's API was called");
 
   fetch(`https://api.tvmaze.com/shows/${showID}/episodes`)
     .then(function (response) {
@@ -25,8 +25,18 @@ const getEpisodesFromID = (showID) => {
       throw `${response.status} ${response.statusText}`;
     })
     .then(function (data) {
+      // this is how we remove the old show cards from the DOM and replace it with the new one
+      const getParentContainer = document.querySelector("#page-container");
+      getParentContainer.removeChild(document.querySelector("#main-content")); // removing the main card container
+
+      const newSection = makeNewElement("section", getParentContainer);
+      setAttributes(newSection, {
+        id: "main-content",
+        class: "card-container",
+      });
+
       // constructs the individual objects for each episode then returns that into the function
-      masterFunction(
+      helperFunction(
         data.map(
           (episode) =>
             // everything after the || is what the constructor will use if the key can't be found
@@ -37,8 +47,9 @@ const getEpisodesFromID = (showID) => {
                 episode.number || "S01E01"
               )}`, //SxxExx
               episode.summary ||
-                "This episode summary couldn't be loaded at this time, sorry.", // episode description
-              episode.image || "", // episode image
+                "<p>This episode summary couldn't be loaded at this time, sorry.</p>", // episode description
+
+              episode.image || false, // episode image. The false can be anything but an object
               episode.url || "https://www.tvmaze.com/" // link to external site
             )
         )
