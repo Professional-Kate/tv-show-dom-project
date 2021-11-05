@@ -52,6 +52,7 @@ const episodeDropdownOnChange = function (episodeList) {
   searchBarOnInput(episodeList); // call the searchbar function to update the amount of episodes shown with the new searchbar value
 };
 
+// eventListener for onChange for the show dropdown
 const showDropdownOnChange = function () {
   const getShowDropdown = document.querySelector("#select-show"); // getting the dropdown element from the DOM
   const getShowHeader = document.querySelector("#first-header"); // getting the h1 element from the DOM
@@ -78,7 +79,6 @@ const populateShowDropdown = function (allShows) {
       document.createElement("option")
     );
     newOption.innerText = show.name;
-    newOption.name = show.name;
     newOption.value = show.id;
   });
 };
