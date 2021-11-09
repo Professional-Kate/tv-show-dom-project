@@ -9,15 +9,23 @@ const setAttributes = function (element, attributes) {
 const makeNewElement = (elementName, parent) =>
   parent.appendChild(document.createElement(elementName));
 
+// pass in a string and an array of things you want to remove, will use each index of the array from the string then return
+const replaceFromString = function (string, removes) {
+  removes.forEach((remove) => {
+    string = string.replace(remove, "");
+  });
+  return string;
+};
+
 // construct an object with only the data I need with some added methods
 class EpisodeCardCreator {
   constructor(title, episodeID, summary, image, link, rating) {
     this.title = title; // episode title
     this.episodeID = episodeID; // eg: S01E03
-    this.summary = summary; // episode summary
     this.link = link; // link to the episode on the API's website
     this.fullTitle = `${episodeID} - ${title}`; // used in the searchbar and dropdown
     this.rating = rating; // rating
+    this.summary = replaceFromString(summary, ["<p>", "</p>", "<br>"]); // episode summary
 
     // condition for if the API doesn't have an image for the show we replace it with a placeholder
     if (typeof image !== "object") {
@@ -36,6 +44,8 @@ class EpisodeCardCreator {
       const newArticleTag = makeNewElement("article", getParentContainer); // parent for everything else
       const newImgTag = makeNewElement("img", newArticleTag);
       const newHeaderTag = makeNewElement("h2", newArticleTag);
+      const newSummaryTag = makeNewElement("p", newArticleTag);
+      const newExtraInfoTag = makeNewElement("p", newArticleTag);
 
       setAttributes(newArticleTag, { class: "card", id: this.episodeID });
 
@@ -47,27 +57,32 @@ class EpisodeCardCreator {
         src: this.image,
       }); // img
 
-      // appending the summary onto the article tag, this summary comes wrapped in <p> tags
-      newArticleTag.innerHTML += this.summary;
-      const getParagraph = newArticleTag.lastChild;
-      setAttributes(getParagraph, { class: "card-text" });
+      // setting the text for the summary and giving it the card-text class
+      const shortenedSummary = this.summary.replace(/^(.{230}[^\s]*).*/, "$1"); // the replace uses regex to only cut text after 230 characters but doesn't cut a word in half
+
+      newSummaryTag.innerText = shortenedSummary;
+
+      if (shortenedSummary.length !== this.summary.length)
+        newSummaryTag.innerText += " ..."; // checks if the shortenedSummary length is equal to the non mutated summary, if it is then the replace did nothing and we don't need to add the ellipsis
+
+      setAttributes(newSummaryTag, { class: "card-text" });
 
       // making a new p tag to act as our rating
-      const newParagraphTag = makeNewElement("p", newArticleTag);
-      newParagraphTag.innerHTML = `
+      newExtraInfoTag.innerHTML = `
       Average rating: ${this.rating}
       <a class="special-text" href="${this.link}" target="_blank">Click to go to episode</a>
       `;
 
-      setAttributes(newParagraphTag, { class: "card-rating" });
+      setAttributes(newExtraInfoTag, { class: "card-rating" });
     };
 
     // toggles the visibility of the episode
     this.hideCard = function (shouldHide) {
+      const getCurrentElement = document.getElementById(this.episodeID);
       if (shouldHide === false) {
-        document.getElementById(this.episodeID).style = ""; // removing all added styles
+        getCurrentElement.removeAttribute("style"); // removing all added styles
       } else {
-        document.getElementById(this.episodeID).style = "display: none"; // hiding the element by removing its display. This also takes the element out from the flow of the page
+        getCurrentElement.style = "display: none"; // hiding the element by removing its display. This also takes the element out from the flow of the page
       }
     };
 

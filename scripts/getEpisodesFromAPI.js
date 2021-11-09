@@ -45,7 +45,7 @@ const getEpisodesFromID = (showID) => {
                 episode.number || "S01E01"
               )}`, //SxxExx
               episode.summary ||
-                "<p>This episode summary couldn't be loaded at this time, sorry.</p>", // episode description
+                "This episode summary couldn't be loaded at this time, sorry.", // episode description
 
               episode.image || false, // episode image. The false can be anything but an object
               episode.url || "https://www.tvmaze.com/", // link to external site
