@@ -22,6 +22,7 @@ const getEpisodesFromID = (showID) => {
       throw `${response.status} ${response.statusText}`;
     })
     .then(function (data) {
+      console.log(data);
       // this is how we remove the old show cards from the DOM and replace it with the new one
       const getParentContainer = document.querySelector("#page-container");
       getParentContainer.removeChild(document.querySelector("#main-content")); // removing the main card container
@@ -47,7 +48,8 @@ const getEpisodesFromID = (showID) => {
                 "<p>This episode summary couldn't be loaded at this time, sorry.</p>", // episode description
 
               episode.image || false, // episode image. The false can be anything but an object
-              episode.url || "https://www.tvmaze.com/" // link to external site
+              episode.url || "https://www.tvmaze.com/", // link to external site
+              episode.rating.average || "?" // episode airdate
             )
         )
       );

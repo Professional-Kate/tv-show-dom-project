@@ -67,11 +67,11 @@ const showDropdownOnChange = function () {
 const populateShowDropdown = function (allShows) {
   const getShowDropdown = document.querySelector("#select-show"); // getting the dropdown element from the DOM
 
-  allShows.map((show) => ({ name: show.name, id: show.id })); // make an array of objects with values of the show title and ID
-
-  allShows.sort((first, second) =>
-    first.name > second.name ? 1 : second.name > first.name ? -1 : 0
-  ); // sort that array based on the title value
+  allShows
+    .sort((first, second) =>
+      first.name > second.name ? 1 : second.name > first.name ? -1 : 0
+    ) // sort that mapped array based on the shows title
+    .map((show) => ({ name: show.name, id: show.id })); // make an array of objects with values of the show title and ID
 
   allShows.forEach((show) => {
     // creating an option element and adding it to the dom
@@ -104,3 +104,26 @@ window.onload = function () {
   });
   populateShowDropdown(getAllShows()); // run this once to populate the dropdown
 };
+
+const useLiveData = true; // true - grabbing from the API, will make an API call. false - using the local data in episodes.js meaning no API call
+
+if (useLiveData === false) {
+  console.log("Using local data...");
+  const episodesList = getAllEpisodes();
+  const episodeArray = episodesList.map(
+    (episode) =>
+      new EpisodeCardCreator(
+        episode.name ||
+          "This episode title couldn't be loaded at this time, sorry.", // episode title
+        `S${minTwoDigits(episode.season)}E${minTwoDigits(
+          episode.number || "S01E01"
+        )}`, //SxxExx
+        episode.summary ||
+          "This episode summary couldn't be loaded at this time, sorry.", // episode description
+        episode.image ||
+          "https://pbs.twimg.com/media/E1Tm_QnWQAAY5LT?format=jpg&name=large", // episode image
+        episode.url || "https://www.tvmaze.com/" // link to external site
+      )
+  );
+  helperFunction(episodeArray);
+}

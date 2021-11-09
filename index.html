@@ -12,15 +12,15 @@
     <link rel="icon" href="resources/favicon.ico" type="image/x-icon" />
   </head>
 
-  <body id="body" class="left-right-margin">
+  <body id="body">
     <!-- top bar settings and toggles  -->
     <header id="main-page-header">
-      <ul id="top-bar-settings" class="header-content">
+      <ul id="top-bar-settings">
         <!-- search bar-->
         <li id="seach-bar">
           <input type="search" id="search-bar" placeholder="Search..." />
         </li>
-        <li id="episode-dropdown-selector" class="dropdown">
+        <li id="episode-dropdown-selector">
           <select id="select-episode">
             <!-- default option  -->
             <option value="" selected disabled hidden>
@@ -28,33 +28,29 @@
             </option>
           </select>
         </li>
-        <li id="show-dropdown-selector" class="dropdown">
+        <li id="show-dropdown-selector">
           <select id="select-show">
             <!-- default option  -->
             <option value="" selected disabled hidden>Select a show...</option>
           </select>
         </li>
         <li>
-          <p id="episodes-shown" class="episode-info">
-            Showing 0 of 0 episodes
-          </p>
+          <p id="episodes-shown">Showing 0 of 0 episodes</p>
         </li>
       </ul>
     </header>
     <!-- section for drawing all the shows / episodes -->
 
-    <h1 id="first-header" class="main-header">Select a show...</h1>
+    <h1 id="first-header">Select a show...</h1>
 
     <div id="page-container">
-      <section id="main-content" class="card-container"></section>
+      <main id="main-content"></main>
     </div>
 
-    <footer id="main-footer" class="footer left-right-margin">
-      <h3 id="footer-header" class="footer-text">
+    <footer id="main-footer">
+      <h3 id="footer-header">
         All data is sourced from:
-        <a href="https://www.tvmaze.com/" target="_blank" class="footer-link"
-          >TVMaze.com</a
-        >
+        <a href="https://www.tvmaze.com/" target="_blank">TVMaze.com</a>
       </h3>
     </footer>
 

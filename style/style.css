@@ -1,180 +1,78 @@
-@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oxygen&family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto&display=swap");
 
 :root {
-  --highlight-font: "Oxygen", Arial;
+  --highlight-font: "Bebas Neue", Arial;
   --normal-font: "Roboto", Arial;
-  --big-font: "Bebas Neue", Arial;
 
   font-family: var(--normal-font);
-  width: 100vw;
-}
+  letter-spacing: 1px; /* spreads the text out a little */
 
-/* ----- MISC STYLE ----- */
-
-.left-right-margin {
-  margin: 0 1em 3em 1em; /* pushing the card in from the left and right and pushing elements below it down*/
-}
-
-/* ----- HEADER ----- */
-
-.header-content {
+  /* whole page alignment */
   display: flex;
-  margin-top: 0.5em;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.header-content * {
-  width: 100%;
-}
-
-.main-header {
-  font-family: var(--big-font);
-  font-size: 5rem;
-  margin: 0.5em 0;
-  text-align: center;
-}
-
-.header-content p {
-  text-align: left;
-  font-size: 1rem;
-}
-
-/* ----- EPISODE CARDS ----- */
-
-/* parent for all the cards */
-.card-container {
-  display: flex;
-  flex-wrap: wrap;
   justify-content: center;
-  gap: 55px;
-  margin-top: 2em; /* adds some white space above the element */
+  margin-top: 3em;
 }
 
 .card {
-  height: 600px; /* all cards are the same size not depending on the size of the content inside */
-  width: 100%;
-  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
-  background: url(../resources/images/pattern.svg);
-  border-radius: 30px;
-  color: white;
-  padding: 0 15px;
-  text-align: left;
+  display: grid; /* each card is a grid */
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  width: 95vw;
+  height: 50vh;
+  border-radius: 20px; /* rounded corners */
+  padding: 1em 1em; /* moves away from the corner */
+  margin-top: 5em; /* space between cards */
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+    rgba(0, 0, 0, 0.22) 0px 10px 10px;
 }
 
 .card-image {
-  aspect-ratio: 25 / 14; /* Medium image: 250x140, that simplified is 25/14 */
+  width: 100%; /* take up a whole grid column in width */
+  aspect-ratio: 25 / 14; /* keep the aspect ratio of the original image */
+  border-radius: 20px;
+  /* alignment */
+  grid-column-start: 1;
+  grid-row-start: 1;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
     rgba(0, 0, 0, 0.22) 0px 10px 10px;
-  border-radius: 30px;
-  margin-top: 20px;
-  width: 85vw;
 }
 
-/* episode title */
 .card-header {
-  font-size: 2.5rem;
-  font-family: var(--big-font);
-  letter-spacing: 2px;
-  margin: 30px 0 20px 0; /* top and bottom margin for some nice whitespace */
-}
-
-/* season and episode number */
-.episode-info {
-  display: block; /* aligns both the text elements on different lines */
-  opacity: 0.5;
-  text-align: right;
-  font-size: 1.5rem;
-  text-align: left;
-}
-
-/* episode summary */
-.card-text {
-  padding: 0 15px; /* pushes the text in from the left and right */
-  font-size: 1.2rem;
-  text-align: left;
-}
-
-/* ----- FOOTER ----- */
-
-.footer {
-  display: flex;
-  border-top: 3px solid black;
-  margin-top: 5em;
-  justify-content: flex-end; /* aligns items to the right of the container */
-}
-
-.footer-text {
-  margin-top: 1em; /* adds some whitespace to the top */
+  position: relative;
+  font-size: 3rem;
+  grid-column-start: 1;
+  grid-row-start: 1;
   text-align: center;
-  font-size: 1.2rem;
+  padding-top: 1.5em;
+  top: 9em;
 }
 
-.footer-link {
-  border-bottom: 2px dotted black;
-  padding: 0 6px 3px 6px;
-  font-family: var(--highlight-font);
+.episode-info {
+  display: block;
+  opacity: 0.4;
+  font-size: 2rem;
+  margin-top: 15px;
 }
 
-.footer-link:hover,
-.footer-link:focus {
-  color: blue;
-  border-color: blue;
-  transition-duration: 300ms;
+.card-text {
+  font-size: 2rem;
+  text-align: left;
+  grid-column-start: 2;
+  grid-row-start: 1;
+  padding: 1em;
+  place-self: center;
 }
 
-/* ----- SMALL SCREENS ----- */
-@media only screen and (min-width: 540px) and (max-width: 1023px) {
-  .card {
-    height: 750px;
-  }
-  .card-image {
-    width: 92vw;
-  }
-  .card-header {
-    font-size: 3.75rem;
-    letter-spacing: 4px;
-  }
-  .episode-info {
-    font-size: 2.5rem;
-  }
+.card-rating {
+  grid-column-start: 2;
+  grid-row-start: 2;
+  font-size: 2rem;
+  text-align: center;
 }
 
-/* ----- MEDIUM SCREENS ----- */
-@media only screen and (min-width: 1024px) and (max-width: 1719px) {
-  .card {
-    height: 1300px;
-  }
-  .card-image {
-    width: 94vw;
-  }
-  .card-header {
-    font-size: 6rem;
-    letter-spacing: 6px;
-  }
-  .episode-info {
-    font-size: 4rem;
-  }
-  .card-text {
-    font-size: 2rem;
-  }
-}
-
-@media only screen and (min-width: 1720px) {
-  .card {
-    height: 1200px;
-  }
-  .card-image {
-    width: 40vw;
-  }
-  .card-header {
-    font-size: 7rem;
-    letter-spacing: 4px;
-  }
-  .episode-info {
-    font-size: 4rem;
-  }
-  .card-text {
-    font-size: 2rem;
-  }
+.special-text {
+  margin-top: 10px;
+  display: block;
+  opacity: 0.5;
+  text-decoration: underline;
 }
