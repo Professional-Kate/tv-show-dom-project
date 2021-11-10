@@ -22,15 +22,13 @@ const getEpisodesFromID = (showID) => {
       throw `${response.status} ${response.statusText}`;
     })
     .then(function (data) {
-      console.log(data);
       // this is how we remove the old show cards from the DOM and replace it with the new one
       const getParentContainer = document.querySelector("#page-container");
       getParentContainer.removeChild(document.querySelector("#main-content")); // removing the main card container
 
-      const newSection = makeNewElement("section", getParentContainer);
-      setAttributes(newSection, {
+      const newMain = makeNewElement("main", getParentContainer);
+      setAttributes(newMain, {
         id: "main-content",
-        class: "card-container",
       });
 
       // constructs the individual objects for each episode then returns that into the function
@@ -42,7 +40,7 @@ const getEpisodesFromID = (showID) => {
               episode.name ||
                 "This episode title couldn't be loaded at this time, sorry.", // episode title
               `S${minTwoDigits(episode.season)}E${minTwoDigits(
-                episode.number || "S01E01"
+                episode.number || "S??E??"
               )}`, //SxxExx
               episode.summary ||
                 "This episode summary couldn't be loaded at this time, sorry.", // episode description

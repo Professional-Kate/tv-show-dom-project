@@ -60,10 +60,10 @@ class EpisodeCardCreator {
       // setting the text for the summary and giving it the card-text class
       const shortenedSummary = this.summary.replace(/^(.{230}[^\s]*).*/, "$1"); // the replace uses regex to only cut text after 230 characters but doesn't cut a word in half
 
-      newSummaryTag.innerText = shortenedSummary;
+      newSummaryTag.innerHTML = shortenedSummary;
 
       if (shortenedSummary.length !== this.summary.length)
-        newSummaryTag.innerText += " ..."; // checks if the shortenedSummary length is equal to the non mutated summary, if it is then the replace did nothing and we don't need to add the ellipsis
+        newSummaryTag.innerHTML += " ..."; // checks if the shortenedSummary length is equal to the non mutated summary, if it is then the replace did nothing and we don't need to add the ellipsis
 
       setAttributes(newSummaryTag, { class: "card-text" });
 
@@ -80,8 +80,8 @@ class EpisodeCardCreator {
     this.hideCard = function (shouldHide) {
       const getCurrentElement = document.getElementById(this.episodeID);
       if (shouldHide === false) {
-        getCurrentElement.removeAttribute("style"); // removing all added styles
-      } else {
+        getCurrentElement.style = "display: grid"; // removing all added styles
+      } else if (shouldHide) {
         getCurrentElement.style = "display: none"; // hiding the element by removing its display. This also takes the element out from the flow of the page
       }
     };
