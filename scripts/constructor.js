@@ -68,7 +68,11 @@ class CardCreator {
       setAttributes(newArticleTag, { class: "card" });
 
       setAttributes(newHeaderTag, { class: "card-header" }); // header
-      newHeaderTag.innerHTML = `${this.title} <span class="episode-info">${this.episodeID}</span>`;
+      newHeaderTag.innerHTML = `${this.title}`;
+      // if it does then we are working with episodes. The episodeID for shows is typeof number
+      if (typeof this.episodeID === "string") {
+        newHeaderTag.innerHTML += `<span class="episode-info">${this.episodeID}</span>`;
+      }
 
       setAttributes(newImgTag, {
         class: "card-image",
