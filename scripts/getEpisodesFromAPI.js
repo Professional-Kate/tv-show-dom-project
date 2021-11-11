@@ -36,18 +36,18 @@ const getEpisodesFromID = (showID) => {
         data.map(
           (episode) =>
             // everything after the || is what the constructor will use if the key can't be found
-            new EpisodeCardCreator(
+            new CardCreator(
+              "main-content",
               episode.name ||
                 "This episode title couldn't be loaded at this time, sorry.", // episode title
-              `S${minTwoDigits(episode.season)}E${minTwoDigits(
-                episode.number || "S??E??"
-              )}`, //SxxExx
               episode.summary ||
                 "This episode summary couldn't be loaded at this time, sorry.", // episode description
-
-              episode.image || false, // episode image. The false can be anything but an object
+              episode.rating.average || "?", // episode airdate
               episode.url || "https://www.tvmaze.com/", // link to external site
-              episode.rating.average || "?" // episode airdate
+              episode.image || false, // episode image. The false can be anything but an object
+              `S${minTwoDigits(episode.season)}E${minTwoDigits(
+                episode.number || "S??E??"
+              )}` //SxxExx
             )
         )
       );

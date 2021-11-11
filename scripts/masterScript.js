@@ -37,8 +37,10 @@ const searchBarOnInput = function (episodeList) {
 // adds options to the dropdown. This is ran on website load
 const populateEpisodeDropdown = function (episodeList) {
   const getDropdown = document.querySelector("#select-episode");
+  getDropdown.innerHTML = `<option value="" selected disabled hidden>Select an episode...</option>`;
+
   for (episode in episodeList) {
-    const newOption = getDropdown.appendChild(document.createElement("option")); // for every episode make a new option
+    const newOption = makeNewElement("option", getDropdown); // for every episode make a new option
     newOption.innerHTML = episodeList[episode].fullTitle; // set the text of it to be the fullTitle
     newOption.value = newOption.innerHTML; // setting the value of that new dropdown
   }
@@ -75,9 +77,7 @@ const populateShowDropdown = function (allShows) {
 
   allShows.forEach((show) => {
     // creating an option element and adding it to the dom
-    const newOption = getShowDropdown.appendChild(
-      document.createElement("option")
-    );
+    const newOption = makeNewElement("option", getShowDropdown);
     newOption.innerText = show.name;
     newOption.value = show.id;
   });
@@ -85,24 +85,45 @@ const populateShowDropdown = function (allShows) {
 
 // handles the whole episodes object and passing it around. Also adds event listeners
 const helperFunction = function (episodeArray) {
-  document
-    .querySelector("#search-bar")
-    .addEventListener("input", () => searchBarOnInput(episodeArray));
+  // grabbing elements from the dom
+  const getSearchBar = document.querySelector("#search-bar");
+  const getSelectEpisode = document.querySelector("#select-episode");
+
+  getSearchBar.addEventListener("input", () => searchBarOnInput(episodeArray));
 
   updateSearchText(episodeArray); // running this at setup to update the showing text
   populateEpisodeDropdown(episodeArray); // run this once to populate the list
 
-  document.querySelector("#select-episode").addEventListener("change", () => {
+  getSelectEpisode.addEventListener("change", () => {
     episodeDropdownOnChange(episodeArray);
   });
 };
 
-// first time setup, populating the show dropdown and adding an eventListener to it
-window.onload = function () {
-  document.querySelector("#select-show").addEventListener("change", () => {
-    showDropdownOnChange();
+// handles loading all the shows from the local script
+window.onload = () => {
+  const getShows = getAllShows();
+  const showArray = getShows.map(
+    (show) =>
+      new CardCreator(
+        "show-cards",
+        show.name || "This show name couldn't be loaded",
+        show.summary || "This show summary couldn't be loaded",
+        show.rating.average || "?",
+        show.url || "https://www.tvmaze.com/",
+        show.image || false,
+        show.id || "?"
+      )
+  );
+
+  showArray.forEach((showCard) => {
+    const getParentContainer = document.getElementById(`${showCard.episodeID}`);
+    getParentContainer.style.cursor = "pointer"; // tells the user that they can click on the card
+    getParentContainer.addEventListener("click", function () {
+      getEpisodesFromID(this.id); // this is relevant to the clicked card
+      const getShowContainer = document.querySelector("#show-screen");
+      getShowContainer.style.display = "none"; // hiding the show cards last to load all the others first
+    });
   });
-  populateShowDropdown(getAllShows()); // run this once to populate the dropdown
 };
 
 const useLiveData = true; // true - grabbing from the API, will make an API call. false - using the local data in episodes.js meaning no API call

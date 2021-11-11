@@ -6,8 +6,11 @@ const setAttributes = function (element, attributes) {
 };
 
 // makes a new element based on parameters then returns that
-const makeNewElement = (elementName, parent) =>
-  parent.appendChild(document.createElement(elementName));
+const makeNewElement = function (elementName, parent, elementID) {
+  const newElement = parent.appendChild(document.createElement(elementName));
+  if (typeof elementID !== "undefined") newElement.id = elementID;
+  return newElement;
+};
 
 // pass in a string and an array of things you want to remove, will use each index of the array from the string then return
 const replaceFromString = function (string, removes) {
@@ -17,9 +20,17 @@ const replaceFromString = function (string, removes) {
   return string;
 };
 
-// construct an object with only the data I need with some added methods
-class EpisodeCardCreator {
-  constructor(title, episodeID, summary, image, link, rating) {
+// construct an object for the episodes
+class CardCreator {
+  constructor(
+    parentContainerID,
+    title,
+    summary,
+    rating,
+    link,
+    image,
+    episodeID
+  ) {
     this.title = title; // episode title
     this.episodeID = episodeID; // eg: S01E03
     this.link = link; // link to the episode on the API's website
@@ -38,16 +49,20 @@ class EpisodeCardCreator {
 
     // adds the episode to the DOM
     this.constructCard = function () {
-      const getParentContainer = document.querySelector("#main-content"); // parent parent
+      const getParentContainer = document.getElementById(parentContainerID); // parent parent
 
       // making new elements and adding them to the DOM
-      const newArticleTag = makeNewElement("article", getParentContainer); // parent for everything else
+      const newArticleTag = makeNewElement(
+        "article",
+        getParentContainer,
+        this.episodeID
+      ); // parent for everything else
       const newImgTag = makeNewElement("img", newArticleTag);
       const newHeaderTag = makeNewElement("h2", newArticleTag);
       const newSummaryTag = makeNewElement("p", newArticleTag);
       const newExtraInfoTag = makeNewElement("p", newArticleTag);
 
-      setAttributes(newArticleTag, { class: "card", id: this.episodeID });
+      setAttributes(newArticleTag, { class: "card" });
 
       setAttributes(newHeaderTag, { class: "card-header" }); // header
       newHeaderTag.innerHTML = `${this.title} <span class="episode-info">${this.episodeID}</span>`;
@@ -70,7 +85,7 @@ class EpisodeCardCreator {
       // making a new p tag to act as our rating
       newExtraInfoTag.innerHTML = `
       Average rating: ${this.rating}
-      <a class="special-text" href="${this.link}" target="_blank">Click to go to episode</a>
+      <a class="special-text" href="${this.link}" target="_blank">Click to view more</a>
       `;
 
       setAttributes(newExtraInfoTag, { class: "card-rating" });
@@ -80,9 +95,9 @@ class EpisodeCardCreator {
     this.hideCard = function (shouldHide) {
       const getCurrentElement = document.getElementById(this.episodeID);
       if (shouldHide === false) {
-        getCurrentElement.style = "display: grid"; // removing all added styles
+        getCurrentElement.style.display = "grid"; // removing all added styles
       } else if (shouldHide) {
-        getCurrentElement.style = "display: none"; // hiding the element by removing its display. This also takes the element out from the flow of the page
+        getCurrentElement.style.display = "none"; // hiding the element by removing its display. This also takes the element out from the flow of the page
       }
     };
 

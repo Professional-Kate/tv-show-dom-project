@@ -23,15 +23,9 @@
         <li id="episode-dropdown-selector">
           <select id="select-episode">
             <!-- default option  -->
-            <option value="" selected disabled hidden>
-              Select an episode...
+            <option id="default-option" value="" selected disabled hidden>
+              Select...
             </option>
-          </select>
-        </li>
-        <li id="show-dropdown-selector">
-          <select id="select-show">
-            <!-- default option  -->
-            <option value="" selected disabled hidden>Select a show...</option>
           </select>
         </li>
         <li>
@@ -42,6 +36,10 @@
     <!-- section for drawing all the shows / episodes -->
 
     <h1 id="first-header">Select a show...</h1>
+
+    <div id="show-screen">
+      <section id="show-cards"></section>
+    </div>
 
     <div id="page-container">
       <main id="main-content"></main>
