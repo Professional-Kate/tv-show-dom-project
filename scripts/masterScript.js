@@ -109,9 +109,9 @@ window.onload = () => {
         show.name || "This show name couldn't be loaded",
         show.summary || "This show summary couldn't be loaded",
         show.rating.average || "?",
-        show.url || "https://www.tvmaze.com/",
         show.image || false,
-        show.id || "?"
+        show.id || "?",
+        show.genres || ["unknown"]
       )
   );
 
@@ -119,9 +119,8 @@ window.onload = () => {
     const getParentContainer = document.getElementById(`${showCard.episodeID}`);
     getParentContainer.style.cursor = "pointer"; // tells the user that they can click on the card
     getParentContainer.addEventListener("click", function () {
-      getEpisodesFromID(this.id); // this is relevant to the clicked card
-      const getShowContainer = document.querySelector("#show-screen");
-      getShowContainer.style.display = "none"; // hiding the show cards last to load all the others first
+      getEpisodesFromID(this.id); // "this" is relevant to the clicked card
+      document.querySelector("#show-screen").style.display = "none"; // hiding the show cards
     });
   });
 };

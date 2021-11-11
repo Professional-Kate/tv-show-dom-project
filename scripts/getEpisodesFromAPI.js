@@ -43,11 +43,11 @@ const getEpisodesFromID = (showID) => {
               episode.summary ||
                 "This episode summary couldn't be loaded at this time, sorry.", // episode description
               episode.rating.average || "?", // episode airdate
-              episode.url || "https://www.tvmaze.com/", // link to external site
               episode.image || false, // episode image. The false can be anything but an object
               `S${minTwoDigits(episode.season)}E${minTwoDigits(
                 episode.number || "S??E??"
-              )}` //SxxExx
+              )}`,
+              episode.url || "https://www.tvmaze.com/" // link to external site
             )
         )
       );

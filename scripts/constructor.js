@@ -27,16 +27,18 @@ class CardCreator {
     title,
     summary,
     rating,
-    link,
     image,
-    episodeID
+    episodeID,
+    genres = false,
+    link
   ) {
     this.title = title; // episode title
     this.episodeID = episodeID; // eg: S01E03
-    this.link = link; // link to the episode on the API's website
+    this.link = link; // link to the episode on the API's website. Only using this for the episodes list
     this.fullTitle = `${episodeID} - ${title}`; // used in the searchbar and dropdown
     this.rating = rating; // rating
     this.summary = replaceFromString(summary, ["<p>", "</p>", "<br>"]); // episode summary
+    this.genres = genres; // equal to an array if the argument was passed in. Only using this for the show list
 
     // condition for if the API doesn't have an image for the show we replace it with a placeholder
     if (typeof image !== "object") {
@@ -44,8 +46,8 @@ class CardCreator {
         `"${this.fullTitle}" : image didn't exist, replacing image...`
       );
       this.image =
-        "https://pbs.twimg.com/media/E1Tm_QnWQAAY5LT?format=jpg&name=large";
-    } else this.image = image.original;
+        "https://pbs.twimg.com/media/E1Tm_QnWQAAY5LT?format=jpg&name=large"; // a picture of a field that I took
+    } else this.image = image.original; // original is higher quality
 
     // adds the episode to the DOM
     this.constructCard = function () {
@@ -60,8 +62,9 @@ class CardCreator {
       const newImgTag = makeNewElement("img", newArticleTag);
       const newHeaderTag = makeNewElement("h2", newArticleTag);
       const newSummaryTag = makeNewElement("p", newArticleTag);
-      const newExtraInfoTag = makeNewElement("p", newArticleTag);
+      const newExtraInfoTag = makeNewElement("p", newArticleTag); // Shows : genre. Episodes : average review
 
+      // giving all out newly created elements some attributes
       setAttributes(newArticleTag, { class: "card" });
 
       setAttributes(newHeaderTag, { class: "card-header" }); // header
@@ -73,7 +76,7 @@ class CardCreator {
       }); // img
 
       // setting the text for the summary and giving it the card-text class
-      const shortenedSummary = this.summary.replace(/^(.{230}[^\s]*).*/, "$1"); // the replace uses regex to only cut text after 230 characters but doesn't cut a word in half
+      const shortenedSummary = this.summary.replace(/^(.{230}[^\s]*).*/, "$1"); // the replace uses regex to only cut text after the number of characters in the {x} but doesn't cut a word in half
 
       newSummaryTag.innerHTML = shortenedSummary;
 
@@ -82,11 +85,18 @@ class CardCreator {
 
       setAttributes(newSummaryTag, { class: "card-text" });
 
-      // making a new p tag to act as our rating
-      newExtraInfoTag.innerHTML = `
+      // if this equals anything else then that means we didn't pass in genres, which means we are creating cards for the episodes
+      if (this.genres !== [])
+        // only for the show cards
+        newExtraInfoTag.innerHTML = ` Genres:
+        <span class="special-text">${this.genres.join(" : ")}</span>`;
+      else {
+        // only for the episode cards
+        newExtraInfoTag.innerHTML = `
       Average rating: ${this.rating}
       <a class="special-text" href="${this.link}" target="_blank">Click to view more</a>
       `;
+      }
 
       setAttributes(newExtraInfoTag, { class: "card-rating" });
     };
