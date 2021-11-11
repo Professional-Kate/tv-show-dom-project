@@ -1,4 +1,4 @@
-// function for setting multiple attributes to an element
+// function for setting multiple attributes to an element. Attributes is assumed to be an object
 const setAttributes = function (element, attributes) {
   for (let key in attributes) {
     element.setAttribute(key, attributes[key]);
@@ -29,10 +29,10 @@ class CardCreator {
     rating,
     image,
     episodeID,
-    genres = false,
-    link
+    link,
+    genres
   ) {
-    this.title = title; // episode title
+    this.title = title; // episode / show title
     this.episodeID = episodeID; // eg: S01E03
     this.link = link; // link to the episode on the API's website. Only using this for the episodes list
     this.fullTitle = `${episodeID} - ${title}`; // used in the searchbar and dropdown
@@ -67,11 +67,16 @@ class CardCreator {
       // giving all out newly created elements some attributes
       setAttributes(newArticleTag, { class: "card" });
 
+      // show / episode title
       setAttributes(newHeaderTag, { class: "card-header" }); // header
       newHeaderTag.innerHTML = `${this.title}`;
       // if it does then we are working with episodes. The episodeID for shows is typeof number
       if (typeof this.episodeID === "string") {
+        // episode number - S01E01
         newHeaderTag.innerHTML += `<span class="episode-info">${this.episodeID}</span>`;
+      } else if (typeof this.episodeID === "number") {
+        // show rating
+        newHeaderTag.innerHTML += `<span class="episode-info">Average rating: ${this.rating}</span>`;
       }
 
       setAttributes(newImgTag, {

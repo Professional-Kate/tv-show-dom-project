@@ -111,6 +111,7 @@ window.onload = () => {
         show.rating.average || "?",
         show.image || false,
         show.id || "?",
+        false, // should be a URL but I don't use that for the show cards
         show.genres || ["unknown"]
       )
   );
