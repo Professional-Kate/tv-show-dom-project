@@ -1,11 +1,11 @@
 // updates the amount of episodes showing
-const updateSearchText = (episodeList, amount = episodeList.length) => {
+const updateSearchText = (type, episodeList, amount = episodeList.length) => {
   const getEpisodesShown = document.querySelector("#episodes-shown");
-  getEpisodesShown.innerText = `Showing ${amount} of ${episodeList.length} episodes`;
+  getEpisodesShown.innerText = `Found ${amount} of ${episodeList.length} ${type}`;
 };
 
 // oninput event callback for the searchbar
-const searchBarOnInput = function (episodeList) {
+const searchBarOnInput = function (type, episodeList) {
   // the amount of episodes shown on screen
   let episodesShown = 0;
 
@@ -40,7 +40,7 @@ const searchBarOnInput = function (episodeList) {
       episodeList[episode].hideCard(true);
     }
   }
-  updateSearchText(episodeList, episodesShown);
+  updateSearchText(type, episodeList, episodesShown);
 };
 
 // adds options to the dropdown. This is ran on website load
@@ -60,7 +60,7 @@ const episodeDropdownOnChange = function (episodeList) {
   document.querySelector("#search-bar").value =
     document.querySelector("#select-episode").value; // setting the value of the searchbar using the drop downs selected value
 
-  searchBarOnInput(episodeList); // call the searchbar function to update the amount of episodes shown with the new searchbar value
+  searchBarOnInput("episode", episodeList); // call the searchbar function to update the amount of episodes shown with the new searchbar value
 };
 
 // handles the whole episodes object and passing it around. Also adds event listeners
@@ -69,9 +69,11 @@ const helperFunction = function (episodeArray) {
   const getSearchBar = document.querySelector("#search-bar");
   const getSelectEpisode = document.querySelector("#select-episode");
 
-  getSearchBar.addEventListener("input", () => searchBarOnInput(episodeArray));
+  getSearchBar.addEventListener("input", () =>
+    searchBarOnInput("episode", episodeArray)
+  );
 
-  updateSearchText(episodeArray); // running this at setup to update the showing text
+  updateSearchText("episodes", episodeArray); // running this at setup to update the showing text
   populateEpisodeDropdown(episodeArray); // run this once to populate the list
 
   getSelectEpisode.addEventListener("change", () => {
@@ -86,7 +88,8 @@ window.onload = () => {
     first.name > second.name ? 1 : second.name > first.name ? -1 : 0
   ); // sorts the show array based on the title of each show
 
-  console.log(getShows);
+  updateSearchText("shows", getShows);
+
   let showArray = getShows.map(
     (show) =>
       new CardCreator(
@@ -97,16 +100,16 @@ window.onload = () => {
         show.image || false,
         show.id || "?",
         false, // should be a URL but I don't use that for the show cards
-        show.genres || ["unknown"],
-        show.status || "Ended",
-        show.runtime || "60 minutes"
+        show.genres || ["unknown"], // array of genres which we join in the constructor
+        show.status || "Ended", // if the show has ended or is running
+        show.runtime || "60 minutes" // show runtime
       )
   );
 
   populateEpisodeDropdown(showArray);
   document
     .querySelector("#search-bar")
-    .addEventListener("input", () => searchBarOnInput(showArray));
+    .addEventListener("input", () => searchBarOnInput("shows", showArray));
 
   showArray.forEach((showCard) => {
     const getParentContainer = document.getElementById(`${showCard.episodeID}`);
@@ -117,7 +120,6 @@ window.onload = () => {
       document.querySelector("#show-screen").style.display = "none"; // hiding the show cards
       document.querySelector("#first-header").style.display = "none"; // hiding the "select a show text"
       document.querySelector("#go-back-text").style.display = "initial"; // showing the go back button
-      document.querySelector("#episodes-shown").style.display = "initial"; // showing the episodes shown text
       document.querySelector("#select-episode").style.display = "initial"; // showing the episode dropdown
     });
   });
@@ -129,6 +131,5 @@ const goBackText = function () {
   document.querySelector("#first-header").style.display = "initial"; // showing the "select a show text"
   document.querySelector("#main-content").style.display = "none"; // hiding the episode cards. No need to remove them as it's already handled
   document.querySelector("#go-back-text").style.display = "none"; // hiding the go back button
-  document.querySelector("#episodes-shown").style.display = "none"; // hiding the episodes shown text
   document.querySelector("#select-episode").style.display = "none"; // hiding the episode dropdown
 };

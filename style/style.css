@@ -17,8 +17,8 @@
   display: grid; /* each card is a grid */
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto;
-  width: 95vw;
-  height: 50vh;
+  width: 95vw; /* white space left and right */
+  height: 53vh;
   border-radius: 20px; /* rounded corners */
   padding: 1em 1em; /* moves away from the corner */
   margin-top: 5em; /* space between cards */
@@ -44,7 +44,7 @@
   grid-row-start: 1;
   text-align: center;
   padding-top: 1.5em;
-  top: 9em;
+  top: 9em; /* pushes the header down so it isn't under the image */
 }
 
 .episode-info {
@@ -88,4 +88,5 @@
 /* so all the flex items take the same space */
 .show-extra-info * {
   width: 100%;
+  padding: 2px; /* adds some more space */
 }
