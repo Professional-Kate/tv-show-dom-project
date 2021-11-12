@@ -24,7 +24,16 @@ const searchBarOnInput = function (episodeList) {
       .toLowerCase()
       .includes(getSearchBarValue);
 
-    if (titleIncludes || descriptionIncludes) {
+    let genresToLowerCase;
+
+    // if it is undefined it means we are working with the episode array which doesn't have genres
+    if (episodeList[episode].genres !== undefined) {
+      genresToLowerCase = episodeList[episode].genres
+        .map((genre) => genre.toLowerCase()) // converting each genre to lowerCase
+        .some((genre) => genre.includes(getSearchBarValue)); // if any of the genres === true this will return true
+    }
+
+    if (titleIncludes || descriptionIncludes || genresToLowerCase) {
       episodeList[episode].hideCard(false);
       episodesShown++; // only need to add because this variable is reset to 0 whenever this function runs
     } else {
