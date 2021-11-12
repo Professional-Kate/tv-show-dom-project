@@ -1,6 +1,6 @@
 # Notes: 
 
-Right now the only working screen size is 1720 x 1440. I will work on this more but as for now that is the only working resolution, sorry.
+Right now the only working screen size is 1920 x 1080 I will work on this more but as for now that is the only working resolution, sorry.
 
 ## TV Show DOM Project
 
