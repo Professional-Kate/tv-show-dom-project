@@ -104,7 +104,7 @@ const helperFunction = function (episodeArray) {
 // take in an object with elements ID : boolean. Where the boolean is if the element should be hidden
 const shouldHideElements = function (object) {
   for (let elementID in object) {
-    const getElement = document.querySelector(elementID);
+    const getElement = document.getElementById(elementID);
     if (object[elementID]) {
       getElement.style.display = "none";
     } else {
@@ -150,12 +150,12 @@ window.onload = () => {
       // hiding and showing elements when the card is clicked
 
       shouldHideElements({
-        "#show-screen": true,
-        "#first-header": true,
-        "#go-back-text": false,
-        "#select-episode": false,
-        "#show-search": true,
-        "#search-bar": false,
+        "show-screen": true,
+        "first-header": true,
+        "go-back-text": false,
+        "select-episode": false,
+        "show-search": true,
+        "search-bar": false,
       });
     });
   });
@@ -164,12 +164,12 @@ window.onload = () => {
 // go back text onclick
 const goBackText = function () {
   shouldHideElements({
-    "#show-screen": false,
-    "#first-header": false,
-    "#main-content": true,
-    "#go-back-text": true,
-    "#select-episode": true,
-    "#show-search": false,
-    "#search-bar": true,
+    "show-screen": false,
+    "first-header": false,
+    "main-content": true,
+    "go-back-text": true,
+    "select-episode": true,
+    "show-search": false,
+    "search-bar": true,
   });
 };
