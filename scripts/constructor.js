@@ -70,7 +70,7 @@ class CardCreator {
       // show / episode title
       setAttributes(newHeaderTag, { class: "card-header" }); // header
       newHeaderTag.innerHTML = `${this.title}`;
-      // if it does then we are working with episodes. The episodeID for shows is typeof number
+      // if typeof === string : we are working with the episode cards. if typeof === number : show cards.
       if (typeof this.episodeID === "string") {
         // episode number - S01E01
         newHeaderTag.innerHTML += `<span class="episode-info">${this.episodeID}</span>`;
@@ -95,16 +95,16 @@ class CardCreator {
       setAttributes(newSummaryTag, { class: "card-text" });
 
       // if this equals anything else then that means we didn't pass in genres, which means we are creating cards for the episodes
-      if (this.genres !== [])
-        // only for the show cards
-        newExtraInfoTag.innerHTML = ` Genres:
-        <span class="special-text">${this.genres.join(" : ")}</span>`;
-      else {
+      if (this.genres === undefined)
         // only for the episode cards
         newExtraInfoTag.innerHTML = `
       Average rating: ${this.rating}
       <a class="special-text" href="${this.link}" target="_blank">Click to view more</a>
       `;
+      else {
+        // only for the show cards
+        newExtraInfoTag.innerHTML = ` Genres:
+        <span class="special-text">${this.genres.join(" : ")}</span>`;
       }
 
       setAttributes(newExtraInfoTag, { class: "card-rating" });

@@ -13,6 +13,15 @@
   </head>
 
   <body id="body">
+    <p
+      id="go-back-text"
+      class="special-text clickable"
+      onclick="goBackText()"
+      style="display: none"
+    >
+      Click here to go back...
+    </p>
+
     <!-- top bar settings and toggles  -->
     <header id="main-page-header">
       <ul id="top-bar-settings">
@@ -21,7 +30,7 @@
           <input type="search" id="search-bar" placeholder="Search..." />
         </li>
         <li id="episode-dropdown-selector">
-          <select id="select-episode">
+          <select id="select-episode" style="display: none">
             <!-- default option  -->
             <option id="default-option" value="" selected disabled hidden>
               Select...
@@ -29,7 +38,9 @@
           </select>
         </li>
         <li>
-          <p id="episodes-shown">Showing 0 of 0 episodes</p>
+          <p id="episodes-shown" style="display: none">
+            Showing 0 of 0 episodes
+          </p>
         </li>
       </ul>
     </header>

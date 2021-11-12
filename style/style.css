@@ -76,3 +76,7 @@
   opacity: 0.5;
   text-decoration: underline;
 }
+
+.clickable {
+  cursor: pointer;
+}

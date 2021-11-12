@@ -37,7 +37,7 @@ const searchBarOnInput = function (episodeList) {
 // adds options to the dropdown. This is ran on website load
 const populateEpisodeDropdown = function (episodeList) {
   const getDropdown = document.querySelector("#select-episode");
-  getDropdown.innerHTML = `<option value="" selected disabled hidden>Select an episode...</option>`;
+  getDropdown.innerHTML = `<option value="" selected disabled hidden>Select...</option>`;
 
   for (episode in episodeList) {
     const newOption = makeNewElement("option", getDropdown); // for every episode make a new option
@@ -52,35 +52,6 @@ const episodeDropdownOnChange = function (episodeList) {
     document.querySelector("#select-episode").value; // setting the value of the searchbar using the drop downs selected value
 
   searchBarOnInput(episodeList); // call the searchbar function to update the amount of episodes shown with the new searchbar value
-};
-
-// eventListener for onChange for the show dropdown
-const showDropdownOnChange = function () {
-  const getShowDropdown = document.querySelector("#select-show"); // getting the dropdown element from the DOM
-  const getShowHeader = document.querySelector("#first-header"); // getting the h1 element from the DOM
-
-  getShowHeader.innerText =
-    getShowDropdown.options[getShowDropdown.selectedIndex].text; // setting the header text to the selected options text
-
-  getEpisodesFromID(getShowDropdown.value); // calling the API with the value from the dropdown
-};
-
-// populates the show dropdown based on the local shows script. That script returns an array of objects
-const populateShowDropdown = function (allShows) {
-  const getShowDropdown = document.querySelector("#select-show"); // getting the dropdown element from the DOM
-
-  allShows
-    .sort((first, second) =>
-      first.name > second.name ? 1 : second.name > first.name ? -1 : 0
-    ) // sort that mapped array based on the shows title
-    .map((show) => ({ name: show.name, id: show.id })); // make an array of objects with values of the show title and ID
-
-  allShows.forEach((show) => {
-    // creating an option element and adding it to the dom
-    const newOption = makeNewElement("option", getShowDropdown);
-    newOption.innerText = show.name;
-    newOption.value = show.id;
-  });
 };
 
 // handles the whole episodes object and passing it around. Also adds event listeners
@@ -102,7 +73,11 @@ const helperFunction = function (episodeArray) {
 // handles loading all the shows from the local script
 window.onload = () => {
   const getShows = getAllShows();
-  const showArray = getShows.map(
+  getShows.sort((first, second) =>
+    first.name > second.name ? 1 : second.name > first.name ? -1 : 0
+  ); // sorts the show array based on the title of each show
+
+  let showArray = getShows.map(
     (show) =>
       new CardCreator(
         "show-cards",
@@ -116,35 +91,32 @@ window.onload = () => {
       )
   );
 
+  populateEpisodeDropdown(showArray);
+  document
+    .querySelector("#search-bar")
+    .addEventListener("input", () => searchBarOnInput(showArray));
+
   showArray.forEach((showCard) => {
     const getParentContainer = document.getElementById(`${showCard.episodeID}`);
-    getParentContainer.style.cursor = "pointer"; // tells the user that they can click on the card
+    getParentContainer.classList.add("clickable"); // informs the user that they can click on the cards
     getParentContainer.addEventListener("click", function () {
       getEpisodesFromID(this.id); // "this" is relevant to the clicked card
+      // hiding and showing elements when the card is clicked
       document.querySelector("#show-screen").style.display = "none"; // hiding the show cards
+      document.querySelector("#first-header").style.display = "none"; // hiding the "select a show text"
+      document.querySelector("#go-back-text").style.display = "initial"; // showing the go back button
+      document.querySelector("#episodes-shown").style.display = "initial"; // showing the episodes shown text
+      document.querySelector("#select-episode").style.display = "initial"; // showing the episode dropdown
     });
   });
 };
 
-const useLiveData = true; // true - grabbing from the API, will make an API call. false - using the local data in episodes.js meaning no API call
-
-if (useLiveData === false) {
-  console.log("Using local data...");
-  const episodesList = getAllEpisodes();
-  const episodeArray = episodesList.map(
-    (episode) =>
-      new EpisodeCardCreator(
-        episode.name ||
-          "This episode title couldn't be loaded at this time, sorry.", // episode title
-        `S${minTwoDigits(episode.season)}E${minTwoDigits(
-          episode.number || "S01E01"
-        )}`, //SxxExx
-        episode.summary ||
-          "This episode summary couldn't be loaded at this time, sorry.", // episode description
-        episode.image ||
-          "https://pbs.twimg.com/media/E1Tm_QnWQAAY5LT?format=jpg&name=large", // episode image
-        episode.url || "https://www.tvmaze.com/" // link to external site
-      )
-  );
-  helperFunction(episodeArray);
-}
+// go back text onclick
+const goBackText = function () {
+  document.querySelector("#show-screen").style.display = "initial"; // showing the show cards
+  document.querySelector("#first-header").style.display = "initial"; // showing the "select a show text"
+  document.querySelector("#main-content").style.display = "none"; // hiding the episode cards. No need to remove them as it's already handled
+  document.querySelector("#go-back-text").style.display = "none"; // hiding the go back button
+  document.querySelector("#episodes-shown").style.display = "none"; // hiding the episodes shown text
+  document.querySelector("#select-episode").style.display = "none"; // hiding the episode dropdown
+};
