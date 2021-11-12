@@ -108,7 +108,7 @@ const shouldHideElements = function (object) {
     if (object[elementID]) {
       getElement.style.display = "none";
     } else {
-      getElement.style.display = "initial";
+      getElement.style.display = "";
     }
   }
 };

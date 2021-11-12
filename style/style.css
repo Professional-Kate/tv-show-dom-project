@@ -13,6 +13,27 @@
   margin-top: 3em;
 }
 
+.header * {
+  width: 100%;
+  margin-top: 3px;
+  font-size: 1.5rem;
+}
+
+.header:first-child {
+  padding-top: 3em;
+}
+
+.go-back-text {
+  font-size: 2rem;
+  text-decoration: underline;
+}
+
+.main-header {
+  margin-top: 1em;
+  text-align: center;
+  font-size: 4rem;
+}
+
 .card {
   display: grid; /* each card is a grid */
   grid-template-columns: 1fr 1fr;
@@ -74,7 +95,8 @@
   margin-top: 10px;
   margin-bottom: 5px;
   display: block;
-  opacity: 0.5;
+  opacity: 0.75;
+  text-decoration: underline;
 }
 
 .clickable {
@@ -89,4 +111,19 @@
 .show-extra-info * {
   width: 100%;
   padding: 2px; /* adds some more space */
+}
+.footer {
+  margin-top: 10em;
+  border-top: 2px black solid;
+  text-align: right;
+}
+
+.footer-text {
+  margin-top: 1em;
+  font-size: 1.5rem;
+}
+
+.footer-text a {
+  text-decoration: underline;
+  opacity: 0.8;
 }

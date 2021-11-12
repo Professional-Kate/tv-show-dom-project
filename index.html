@@ -15,7 +15,7 @@
   <body id="body">
     <p
       id="go-back-text"
-      class="special-text clickable"
+      class="special-text clickable go-back-text"
       onclick="goBackText()"
       style="display: none"
     >
@@ -24,7 +24,7 @@
 
     <!-- top bar settings and toggles  -->
     <header id="main-page-header">
-      <ul id="top-bar-settings">
+      <ul id="top-bar-settings" class="header">
         <!-- search bar-->
         <label for="search-bar">Filtering for</label>
         <li id="search-bar-container">
@@ -51,7 +51,7 @@
     </header>
     <!-- section for drawing all the shows / episodes -->
 
-    <h1 id="first-header">Select a show...</h1>
+    <h1 id="first-header" class="main-header">Select a show...</h1>
 
     <div id="show-screen">
       <section id="show-cards"></section>
@@ -61,8 +61,8 @@
       <main id="main-content"></main>
     </div>
 
-    <footer id="main-footer">
-      <h3 id="footer-header">
+    <footer id="main-footer" class="footer">
+      <h3 id="footer-header" class="footer-text">
         All data is sourced from:
         <a href="https://www.tvmaze.com/" target="_blank">TVMaze.com</a>
       </h3>
