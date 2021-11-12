@@ -24,16 +24,16 @@ const searchBarOnInput = function (episodeList) {
       .toLowerCase()
       .includes(getSearchBarValue);
 
-    let genresToLowerCase;
+    let genresInclude;
 
     // if it is undefined it means we are working with the episode array which doesn't have genres
     if (episodeList[episode].genres !== undefined) {
-      genresToLowerCase = episodeList[episode].genres
+      genresInclude = episodeList[episode].genres
         .map((genre) => genre.toLowerCase()) // converting each genre to lowerCase
         .some((genre) => genre.includes(getSearchBarValue)); // if any of the genres === true this will return true
     }
 
-    if (titleIncludes || descriptionIncludes || genresToLowerCase) {
+    if (titleIncludes || descriptionIncludes || genresInclude) {
       episodeList[episode].hideCard(false);
       episodesShown++; // only need to add because this variable is reset to 0 whenever this function runs
     } else {
@@ -86,6 +86,7 @@ window.onload = () => {
     first.name > second.name ? 1 : second.name > first.name ? -1 : 0
   ); // sorts the show array based on the title of each show
 
+  console.log(getShows);
   let showArray = getShows.map(
     (show) =>
       new CardCreator(
@@ -96,7 +97,9 @@ window.onload = () => {
         show.image || false,
         show.id || "?",
         false, // should be a URL but I don't use that for the show cards
-        show.genres || ["unknown"]
+        show.genres || ["unknown"],
+        show.status || "Ended",
+        show.runtime || "60 minutes"
       )
   );
 

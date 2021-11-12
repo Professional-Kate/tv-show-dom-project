@@ -72,11 +72,20 @@
 
 .special-text {
   margin-top: 10px;
+  margin-bottom: 5px;
   display: block;
   opacity: 0.5;
-  text-decoration: underline;
 }
 
 .clickable {
   cursor: pointer;
+}
+
+.show-extra-info {
+  display: flex;
+}
+
+/* so all the flex items take the same space */
+.show-extra-info * {
+  width: 100%;
 }

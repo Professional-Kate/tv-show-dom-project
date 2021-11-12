@@ -8,7 +8,7 @@ const setAttributes = function (element, attributes) {
 // makes a new element based on parameters then returns that
 const makeNewElement = function (elementName, parent, elementID) {
   const newElement = parent.appendChild(document.createElement(elementName));
-  if (typeof elementID !== "undefined") newElement.id = elementID;
+  if (elementID !== undefined) newElement.id = elementID;
   return newElement;
 };
 
@@ -30,7 +30,9 @@ class CardCreator {
     image,
     episodeID,
     link,
-    genres
+    genres,
+    status,
+    runtime
   ) {
     this.title = title; // episode / show title
     this.episodeID = episodeID; // eg: S01E03
@@ -39,6 +41,8 @@ class CardCreator {
     this.rating = rating; // rating
     this.summary = replaceFromString(summary, ["<p>", "</p>", "<br>"]); // episode summary
     this.genres = genres; // equal to an array if the argument was passed in. Only using this for the show list
+    this.status = status;
+    this.runtime = runtime;
 
     // condition for if the API doesn't have an image for the show we replace it with a placeholder
     if (typeof image !== "object") {
@@ -104,7 +108,20 @@ class CardCreator {
       else {
         // only for the show cards
         newExtraInfoTag.innerHTML = ` Genres:
-        <span class="special-text">${this.genres.join(" : ")}</span>`;
+        <span class="special-text">${this.genres.join(" : ")}</span>
+        Status: <span class="special-text">${this.status}</span>
+        Runtime: <span class="special-text">${this.runtime}</span> minutes
+        `;
+        // adding the elements like this is just easier
+        newExtraInfoTag.innerHTML = `
+        <ul class="show-extra-info">
+        <li>Genre: <span class="special-text">${this.genres.join(
+          ", "
+        )}</span></li>
+        <li>Status: <span class="special-text">${this.status}</span></li> 
+        <li>Runtime: <span class="special-text">${
+          this.runtime
+        } minutes </span></li>`;
       }
 
       setAttributes(newExtraInfoTag, { class: "card-rating" });
