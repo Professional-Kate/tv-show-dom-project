@@ -39,7 +39,7 @@
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto;
   width: 95vw; /* white space left and right */
-  height: 53vh;
+  height: 72vh;
   border-radius: 20px; /* rounded corners */
   padding: 1em 1em; /* moves away from the corner */
   margin-top: 5em; /* space between cards */
@@ -65,7 +65,7 @@
   grid-row-start: 1;
   text-align: center;
   padding-top: 1.5em;
-  top: 9em; /* pushes the header down so it isn't under the image */
+  top: 10em; /* pushes the header down so it isn't under the image */
 }
 
 .episode-info {
