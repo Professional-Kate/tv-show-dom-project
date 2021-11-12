@@ -5,24 +5,19 @@ const updateSearchText = (type, episodeList, amount = episodeList.length) => {
 };
 
 // oninput event callback for the searchbar. type typeof === string : shows || episodes
-const searchBarOnInput = function (type, episodeList) {
+const searchBarOnInput = function (type, episodeList, value) {
   // the amount of episodes shown on screen
   let episodesShown = 0;
-
-  // getting the OnInput value from the DOM to lowercase
-  const getSearchBarValue = document
-    .querySelector("#search-bar")
-    .value.toLowerCase();
 
   // for every object in the array of objects
   for (episode in episodeList) {
     const titleIncludes = episodeList[episode].fullTitle
       .toLowerCase()
-      .includes(getSearchBarValue);
+      .includes(value);
     // checking the value in the object if the description includes the users entered text
     const descriptionIncludes = episodeList[episode].summary
       .toLowerCase()
-      .includes(getSearchBarValue);
+      .includes(value);
 
     let genresInclude;
 
@@ -30,7 +25,7 @@ const searchBarOnInput = function (type, episodeList) {
     if (episodeList[episode].genres !== undefined) {
       genresInclude = episodeList[episode].genres
         .map((genre) => genre.toLowerCase()) // converting each genre to lowerCase
-        .some((genre) => genre.includes(getSearchBarValue)); // if any of the genres === true this will return true
+        .some((genre) => genre.includes(value)); // if any of the genres === true this will return true
     }
 
     if (titleIncludes || descriptionIncludes || genresInclude) {
@@ -60,7 +55,11 @@ const episodeDropdownOnChange = function (episodeList) {
   document.querySelector("#search-bar").value =
     document.querySelector("#select-episode").value; // setting the value of the searchbar using the drop downs selected value
 
-  searchBarOnInput("episode", episodeList); // call the searchbar function to update the amount of episodes shown with the new searchbar value
+  searchBarOnInput(
+    "episodes",
+    episodeList,
+    document.querySelector("#search-bar").value.toLowerCase()
+  ); // call the searchbar function to update the amount of episodes shown with the new searchbar value
 };
 
 const recreateSearchBar = function (array) {
@@ -71,8 +70,20 @@ const recreateSearchBar = function (array) {
   setAttributes(getSearchBar, { type: "search", placeholder: "Search..." });
 
   getSearchBar.addEventListener("input", function () {
-    searchBarOnInput("episode", array);
+    searchBarOnInput(
+      "episodes",
+      array,
+      document.querySelector("#search-bar").value.toLowerCase()
+    );
   });
+};
+
+const showSearch = function (array) {
+  searchBarOnInput(
+    "shows",
+    array,
+    document.querySelector("#show-search").value.toLowerCase()
+  );
 };
 
 // handles the whole episodes object and passing it around. Also adds event listeners
@@ -116,8 +127,8 @@ window.onload = () => {
   );
 
   document
-    .querySelector("#search-bar")
-    .addEventListener("input", () => searchBarOnInput("shows", showArray));
+    .querySelector("#show-search")
+    .addEventListener("input", () => showSearch(showArray));
 
   showArray.forEach((showCard) => {
     const getParentContainer = document.getElementById(`${showCard.episodeID}`);
@@ -129,6 +140,9 @@ window.onload = () => {
       document.querySelector("#first-header").style.display = "none"; // hiding the "select a show text"
       document.querySelector("#go-back-text").style.display = "initial"; // showing the go back button
       document.querySelector("#select-episode").style.display = "initial"; // showing the episode dropdown
+
+      document.querySelector("#show-search").style.display = "none";
+      document.querySelector("#search-bar").style.display = "initial";
     });
   });
 };
@@ -141,5 +155,6 @@ const goBackText = function () {
   document.querySelector("#go-back-text").style.display = "none"; // hiding the go back button
   document.querySelector("#select-episode").style.display = "none"; // hiding the episode dropdown
 
-  recreateSearchBar();
+  document.querySelector("#show-search").style.display = "initial";
+  document.querySelector("#search-bar").style.display = "none";
 };
