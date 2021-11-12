@@ -4,7 +4,7 @@ const updateSearchText = (type, episodeList, amount = episodeList.length) => {
   getEpisodesShown.innerText = `Found ${amount} of ${episodeList.length} ${type}`;
 };
 
-// oninput event callback for the searchbar
+// oninput event callback for the searchbar. type typeof === string : shows || episodes
 const searchBarOnInput = function (type, episodeList) {
   // the amount of episodes shown on screen
   let episodesShown = 0;
@@ -63,15 +63,24 @@ const episodeDropdownOnChange = function (episodeList) {
   searchBarOnInput("episode", episodeList); // call the searchbar function to update the amount of episodes shown with the new searchbar value
 };
 
+const recreateSearchBar = function (array) {
+  let getSearchBar = document.querySelector("#search-bar");
+  const getParent = document.querySelector("#search-bar-container");
+  getParent.removeChild(getSearchBar);
+  getSearchBar = makeNewElement("input", getParent, "search-bar");
+  setAttributes(getSearchBar, { type: "search", placeholder: "Search..." });
+
+  getSearchBar.addEventListener("input", function () {
+    searchBarOnInput("episode", array);
+  });
+};
+
 // handles the whole episodes object and passing it around. Also adds event listeners
 const helperFunction = function (episodeArray) {
   // grabbing elements from the dom
-  const getSearchBar = document.querySelector("#search-bar");
   const getSelectEpisode = document.querySelector("#select-episode");
 
-  getSearchBar.addEventListener("input", () =>
-    searchBarOnInput("episode", episodeArray)
-  );
+  recreateSearchBar(episodeArray);
 
   updateSearchText("episodes", episodeArray); // running this at setup to update the showing text
   populateEpisodeDropdown(episodeArray); // run this once to populate the list
@@ -100,13 +109,12 @@ window.onload = () => {
         show.image || false,
         show.id || "?",
         false, // should be a URL but I don't use that for the show cards
-        show.genres || ["unknown"], // array of genres which we join in the constructor
+        show.genres, // array of genres which we join in the constructor
         show.status || "Ended", // if the show has ended or is running
         show.runtime || "60 minutes" // show runtime
       )
   );
 
-  populateEpisodeDropdown(showArray);
   document
     .querySelector("#search-bar")
     .addEventListener("input", () => searchBarOnInput("shows", showArray));
@@ -132,4 +140,6 @@ const goBackText = function () {
   document.querySelector("#main-content").style.display = "none"; // hiding the episode cards. No need to remove them as it's already handled
   document.querySelector("#go-back-text").style.display = "none"; // hiding the go back button
   document.querySelector("#select-episode").style.display = "none"; // hiding the episode dropdown
+
+  recreateSearchBar();
 };
