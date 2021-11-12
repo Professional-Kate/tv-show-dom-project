@@ -101,6 +101,18 @@ const helperFunction = function (episodeArray) {
   });
 };
 
+// take in an object with elements ID : boolean. Where the boolean is if the element should be hidden
+const shouldHideElements = function (object) {
+  for (let elementID in object) {
+    const getElement = document.querySelector(elementID);
+    if (object[elementID]) {
+      getElement.style.display = "none";
+    } else {
+      getElement.style.display = "initial";
+    }
+  }
+};
+
 // handles loading all the shows from the local script
 window.onload = () => {
   const getShows = getAllShows();
@@ -136,25 +148,28 @@ window.onload = () => {
     getParentContainer.addEventListener("click", function () {
       getEpisodesFromID(this.id); // "this" is relevant to the clicked card
       // hiding and showing elements when the card is clicked
-      document.querySelector("#show-screen").style.display = "none"; // hiding the show cards
-      document.querySelector("#first-header").style.display = "none"; // hiding the "select a show text"
-      document.querySelector("#go-back-text").style.display = "initial"; // showing the go back button
-      document.querySelector("#select-episode").style.display = "initial"; // showing the episode dropdown
 
-      document.querySelector("#show-search").style.display = "none";
-      document.querySelector("#search-bar").style.display = "initial";
+      shouldHideElements({
+        "#show-screen": true,
+        "#first-header": true,
+        "#go-back-text": false,
+        "#select-episode": false,
+        "#show-search": true,
+        "#search-bar": false,
+      });
     });
   });
 };
 
 // go back text onclick
 const goBackText = function () {
-  document.querySelector("#show-screen").style.display = "initial"; // showing the show cards
-  document.querySelector("#first-header").style.display = "initial"; // showing the "select a show text"
-  document.querySelector("#main-content").style.display = "none"; // hiding the episode cards. No need to remove them as it's already handled
-  document.querySelector("#go-back-text").style.display = "none"; // hiding the go back button
-  document.querySelector("#select-episode").style.display = "none"; // hiding the episode dropdown
-
-  document.querySelector("#show-search").style.display = "initial";
-  document.querySelector("#search-bar").style.display = "none";
+  shouldHideElements({
+    "#show-screen": false,
+    "#first-header": false,
+    "#main-content": true,
+    "#go-back-text": true,
+    "#select-episode": true,
+    "#show-search": false,
+    "#search-bar": true,
+  });
 };
