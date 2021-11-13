@@ -1,0 +1,129 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto&display=swap");
+
+:root {
+  --highlight-font: "Bebas Neue", Arial;
+  --normal-font: "Roboto", Arial;
+
+  font-family: var(--normal-font);
+  letter-spacing: 1px; /* spreads the text out a little */
+
+  /* whole page alignment */
+  display: flex;
+  justify-content: center;
+  margin-top: 3em;
+}
+
+.header * {
+  width: 100%;
+  margin-top: 3px;
+  font-size: 1.5rem;
+}
+
+.header:first-child {
+  padding-top: 3em;
+}
+
+.go-back-text {
+  font-size: 2rem;
+  text-decoration: underline;
+}
+
+.main-header {
+  margin-top: 1em;
+  text-align: center;
+  font-size: 4rem;
+}
+
+.card {
+  display: grid; /* each card is a grid */
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  width: 95vw; /* white space left and right */
+  height: 72vh;
+  border-radius: 20px; /* rounded corners */
+  padding: 1em 1em; /* moves away from the corner */
+  margin-top: 5em; /* space between cards */
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+    rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
+
+.card-image {
+  width: 100%; /* take up a whole grid column in width */
+  aspect-ratio: 25 / 14; /* keep the aspect ratio of the original image */
+  border-radius: 20px;
+  /* alignment */
+  grid-column-start: 1;
+  grid-row-start: 1;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+    rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
+
+.card-header {
+  position: relative;
+  font-size: 3rem;
+  grid-column-start: 1;
+  grid-row-start: 1;
+  text-align: center;
+  padding-top: 1.5em;
+  top: 10em; /* pushes the header down so it isn't under the image */
+}
+
+.episode-info {
+  display: block;
+  opacity: 0.4;
+  font-size: 2rem;
+  margin-top: 15px;
+}
+
+.card-text {
+  font-size: 2rem;
+  text-align: left;
+  grid-column-start: 2;
+  grid-row-start: 1;
+  padding: 1em;
+  place-self: center;
+}
+
+.card-rating {
+  grid-column-start: 2;
+  grid-row-start: 2;
+  font-size: 2rem;
+  text-align: center;
+}
+
+.special-text {
+  margin-top: 10px;
+  margin-bottom: 5px;
+  display: block;
+  opacity: 0.75;
+  text-decoration: underline;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.show-extra-info {
+  display: flex;
+}
+
+/* so all the flex items take the same space */
+.show-extra-info * {
+  width: 100%;
+  padding: 2px; /* adds some more space */
+}
+.footer {
+  margin-top: 10em;
+  border-top: 2px black solid;
+  text-align: right;
+}
+
+.footer-text {
+  margin-top: 1em;
+  font-size: 1.5rem;
+}
+
+.footer-text a {
+  text-decoration: underline;
+  opacity: 0.8;
+}

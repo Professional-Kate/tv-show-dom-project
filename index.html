@@ -1,21 +1,79 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-gb">
   <head>
+    <title>TV Show Project | Kate Groutage (Professional-Kate)</title>
+    <!-- meta data -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TV Show Project | My Name (My GitHub username)</title>
-    <link href="style.css" rel="stylesheet" />
-    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- style -->
+    <link href="style/resetstyle.css" rel="stylesheet" />
+    <link href="style/style.css" rel="stylesheet" />
+    <link rel="icon" href="resources/favicon.ico" type="image/x-icon" />
   </head>
 
-  <body>
-    <div id="root">
+  <body id="body">
+    <p
+      id="go-back-text"
+      class="special-text clickable go-back-text"
+      onclick="goBackText()"
+      style="display: none"
+    >
+      Click here to go back...
+    </p>
+
+    <!-- top bar settings and toggles  -->
+    <header id="main-page-header">
+      <ul id="top-bar-settings" class="header">
+        <!-- search bar-->
+        <label for="search-bar">Filtering for</label>
+        <li id="search-bar-container">
+          <input id="show-search" type="search" placeholder="Search!" />
+          <input
+            type="search"
+            id="search-bar"
+            placeholder="Search..."
+            style="display: none"
+          />
+        </li>
+        <li id="episode-dropdown-selector">
+          <select id="select-episode" style="display: none">
+            <!-- default option  -->
+            <option id="default-option" value="" selected disabled hidden>
+              Select...
+            </option>
+          </select>
+        </li>
+        <li>
+          <p id="episodes-shown">Found 0 of 0 episodes</p>
+        </li>
+      </ul>
+    </header>
+    <!-- section for drawing all the shows / episodes -->
+
+    <h1 id="first-header" class="main-header">Select a show...</h1>
+
+    <div id="show-screen">
+      <section id="show-cards"></section>
     </div>
 
-    <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
-    <script src="episodes.js"></script>
+    <div id="page-container">
+      <main id="main-content"></main>
+    </div>
 
+    <footer id="main-footer" class="footer">
+      <h3 id="footer-header" class="footer-text">
+        All data is sourced from:
+        <a href="https://www.tvmaze.com/" target="_blank">TVMaze.com</a>
+      </h3>
+    </footer>
+
+    <script src="scripts/shows.js"></script>
+    <script src="scripts/getEpisodesFromAPI.js"></script>
+    <script src="scripts/constructor.js"></script>
+    <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
+    <script src="scripts/episodes.js"></script>
     <!-- Loads YOUR javascript code -->
-    <script src="script.js"></script>
+    <script src="scripts/masterScript.js"></script>
   </body>
 </html>
